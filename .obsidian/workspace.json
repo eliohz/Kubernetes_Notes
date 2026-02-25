@@ -11,12 +11,14 @@
             "id": "2875e1bf6f8d2e59",
             "type": "leaf",
             "state": {
-              "type": "image",
+              "type": "markdown",
               "state": {
-                "file": "_images/Pasted image 20260225140659.png"
+                "file": "Tag 1 - Docker.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-image",
-              "title": "Pasted image 20260225140659"
+              "icon": "lucide-file",
+              "title": "Tag 1 - Docker"
             }
           }
         ]
@@ -194,9 +196,10 @@
   },
   "active": "2875e1bf6f8d2e59",
   "lastOpenFiles": [
+    "README.md",
+    "_images/Pasted image 20260225140659.png",
     "Tag 1 - Kubernetes.md",
     "_images/Pasted image 20260225140716.png",
-    "_images/Pasted image 20260225140659.png",
     "index.html",
     "Schulungsunterlagen/00-kubernetes-setup/uebung-kubernetes-setup-rhel.md",
     "Schulungsunterlagen/00-kubernetes-setup/azure-umgebung.excalidraw.png",
@@ -206,7 +209,6 @@
     "_images/Pasted image 20260225094218.png",
     "Tag 1 - Docker.md",
     "_images",
-    "README.md",
     "Schulungsunterlagen/README.md",
     "Schulungsunterlagen/03-extended-concepts/06-paketmanager/kustomize/overlays/generators/files/index.html",
     "Schulungsunterlagen/03-extended-concepts/06-paketmanager/kustomize/overlays/prod/kustomization.yaml",
