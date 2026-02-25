@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Tag 1 - Docker.md",
+                "file": "README.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Tag 1 - Docker"
+              "title": "README"
             }
           }
         ]
@@ -196,6 +196,8 @@
   },
   "active": "2875e1bf6f8d2e59",
   "lastOpenFiles": [
+    "_restyle.py",
+    "Tag 1 - Docker.md",
     "README.md",
     "_images/Pasted image 20260225140659.png",
     "Tag 1 - Kubernetes.md",
@@ -207,7 +209,6 @@
     "Pasted image 20260225134025.png",
     "_images/Pasted image 20260225134123.png",
     "_images/Pasted image 20260225094218.png",
-    "Tag 1 - Docker.md",
     "_images",
     "Schulungsunterlagen/README.md",
     "Schulungsunterlagen/03-extended-concepts/06-paketmanager/kustomize/overlays/generators/files/index.html",
