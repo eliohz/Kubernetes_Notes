@@ -15,10 +15,11 @@
 ### Kubernetes Aufbau
 ![[Pasted image 20260225134123.png]]
 
-## Komponenten
+# Komponenten
 
 ### Control-Plane: 
 Zentrale Steuerungseinheit des Kubernetes-Clusters
+![[Pasted image 20260225140659.png]]
 
 **API-Server (kube-apiserver)**
 - Das “Gehirn” des Clusters.
@@ -41,6 +42,7 @@ Zentrale Steuerungseinheit des Kubernetes-Clusters
 
 ### Worker Node
 (Dort laufen die Pods / Anwendungen)
+![[Pasted image 20260225140716.png]]
 
 **Kubelet**
 - Agent auf jedem Worker Node.
