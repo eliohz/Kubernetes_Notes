@@ -17,7 +17,8 @@
 
 ## Komponenten
 
-#### Control-Plane: 
+### Control-Plane: 
+Zentrale Steuerungseinheit des Kubernetes-Clusters
 
 **API-Server (kube-apiserver)**
 - Das “Gehirn” des Clusters.
@@ -38,5 +39,22 @@
 - Schaut, welche Nodes frei sind und was die Ressourcen brauchen.
 - Arbeitet eng mit API-Server und Controller Manager zusammen, damit alles wie gewünscht läuft.
 
+### Worker Node
+(Dort laufen die Pods / Anwendungen)
 
+**Kubelet**
+- Agent auf jedem Worker Node.
+- Spricht mit dem API-Server.
+- Startet und überwacht Pods/Container.
+- Sorgt dafür, dass der **IST-Zustand** dem **SOLL-Zustand** entspricht.
 
+**Kube-Proxy**
+- Kümmert sich um die Netzwerk-Regeln.
+- Sorgt dafür, dass Pods miteinander kommunizieren können.
+- Leitet Traffic korrekt an die richtigen Pods weiter (Service → Pod).
+  
+**CRI (Container Runtime Interface)**
+- Schnittstelle zwischen Kubelet und der Container Runtime.
+- Ermöglicht das Starten und Stoppen von Containern.
+- Macht Kubernetes unabhängig von einer bestimmten Container-Technologie.
+- Beispiele für Container Runtimes: containerd oder CRI-O.
