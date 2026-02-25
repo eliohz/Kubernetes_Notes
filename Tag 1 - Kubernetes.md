@@ -18,17 +18,25 @@
 ## Komponenten
 
 #### Control-Plane: 
-**API-Server (kube-apiserver)**
-- Zentrale administrative Service-Komponente auf dem Master
-- Verwaltet alle Ressourcen und Baupläne
-- Validiert und verarbeitet Requests
-- Legt Soll-Zustand im etcd ab
 
-**Controller manager**
-- Steuert alle Controllerabläufe auf dem Control Plane. 
-- Jeder Controller ist ein separater Prozess aber im Controller Manager werden alle in einer binary Kompiliert und ausgeführt
-- Beobachtet den API Server
-- Vergleicht IST-Zustand mit SOLL-Zustand
-- Gibt auszuführende Anweisungen an den Scheduler weiter
+**API-Server (kube-apiserver)**
+- Das “Gehirn” des Clusters.
+- Nimmt alle Befehle an (z. B. Pods starten, löschen).
+- Speichert den gewünschten Zustand aller Ressourcen in **etcd**.
+
+**etcd**
+- Einfaches, sicheres Schlüssel-Wert-Speicher-System.
+- Speichert den **Soll-Zustand** des Clusters.
+
+**Controller Manager**
+- Läuft im Hintergrund und kümmert sich darum, dass alles so läuft wie geplant.
+- Prüft, ob der aktuelle Zustand (**IST**) dem gewünschten Zustand (**SOLL**) entspricht.
+- Schickt Anweisungen, z. B. an den Scheduler.
+
+**Scheduler (kube-scheduler)**
+- Verteilt neue Pods auf die richtigen Nodes.
+- Schaut, welche Nodes frei sind und was die Ressourcen brauchen.
+- Arbeitet eng mit API-Server und Controller Manager zusammen, damit alles wie gewünscht läuft.
+
 
 
