@@ -60,3 +60,31 @@ Zentrale Steuerungseinheit des Kubernetes-Clusters
 - Ermöglicht das Starten und Stoppen von Containern.
 - Macht Kubernetes unabhängig von einer bestimmten Container-Technologie.
 - Beispiele für Container Runtimes: containerd oder CRI-O.
+
+
+# Namespace 
+## Was ist ein Namespace?
+Ein Namespace ist eine logische Unterteilung innerhalb eines Kubernetes-Clusters.
+Er dient zur Organisation, Isolation und Zugriffskontrolle von Ressourcen.
+
+## Wofür braucht man Namespaces?
+
+- Trennung von Umgebungen (dev, test, prod)
+- Trennung von Teams
+- RBAC-Zugriffssteuerung
+- ResourceQuotas (CPU / RAM Limits pro Namespace)
+- Gleiche Ressourcennamen in unterschiedlichen Namespaces möglich
+
+## Standard Namespaces
+
+- default
+- kube-system
+- kube-public
+- kube-node-lease
+
+
+## Wichtig
+
+- Namespaces isolieren Ressourcen logisch
+- Netzwerkverkehr wird NICHT automatisch getrennt
+- Für Netzwerkisolation → NetworkPolicies
