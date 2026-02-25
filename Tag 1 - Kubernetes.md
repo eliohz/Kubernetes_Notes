@@ -82,7 +82,6 @@ Er dient zur Organisation, Isolation und Zugriffskontrolle von Ressourcen.
 - kube-public
 - kube-node-lease
 
-
 ## Wichtig
 
 - Namespaces isolieren Ressourcen logisch
