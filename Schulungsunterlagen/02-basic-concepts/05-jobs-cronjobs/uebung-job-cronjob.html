@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>uebung-job-cronjob</title>
+  <style>
+
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+  <style type="text/css">
+:root {
+--space-xs: 0.25rem;
+--space-sm: 0.5rem;
+--space-md: 1rem;
+--space-lg: 1.5rem;
+--space-xl: 2.5rem;
+--content-width: 860px;
+--border-radius-sm: 4px;
+--border-radius-md: 6px;
+}
+:root {
+--font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI",
+Roboto, Helvetica, Arial, sans-serif;
+--font-mono: "SFMono-Regular", Consolas, "Liberation Mono",
+Menlo, monospace;
+--font-size-base: 16px;
+--line-height-base: 1.65;
+}
+:root {
+--color-bg: #ffffff;
+--color-text: #1f2933;
+--color-muted: #4b5563;
+--color-border: #e5e7eb;
+--color-border-strong: #d1d5db;
+--color-link: #2563eb;
+--color-link-hover: #1d4ed8;
+--color-inline-code-bg: #f3f4f6;
+--color-blockquote-bg: #f8fafc;
+--color-blockquote-border: #93c5fd;
+--color-pre-bg: #0f172a;
+--color-pre-text: #e5e7eb;
+--color-table-header-bg: #f3f4f6;
+}
+@media (prefers-color-scheme: dark) {
+:root {
+--color-bg: #0b1020;
+--color-text: #e5e7eb;
+--color-muted: #9ca3af;
+--color-border: #1f2937;
+--color-border-strong: #374151;
+--color-link: #60a5fa;
+--color-link-hover: #93c5fd;
+--color-inline-code-bg: #1f2937;
+--color-blockquote-bg: #0f172a;
+--color-blockquote-border: #60a5fa;
+--color-pre-bg: #020617;
+--color-pre-text: #e5e7eb;
+--color-table-header-bg: #020617;
+}
+}
+
+html {
+font-size: var(--font-size-base);
+}
+body {
+font-family: var(--font-sans);
+line-height: var(--line-height-base);
+color: var(--color-text);
+background-color: var(--color-bg);
+margin: 0 auto;
+padding: var(--space-xl);
+max-width: var(--content-width);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+font-weight: 600;
+line-height: 1.3;
+margin-top: 2.2em;
+margin-bottom: var(--space-sm);
+}
+h1 {
+font-size: 2.2rem;
+border-bottom: 2px solid var(--color-border);
+padding-bottom: var(--space-xs);
+}
+h2 {
+font-size: 1.75rem;
+border-bottom: 1px solid var(--color-border);
+padding-bottom: var(--space-xs);
+}
+h3 {
+font-size: 1.4rem;
+}
+h4 {
+font-size: 1.15rem;
+color: var(--color-muted);
+}
+
+p {
+margin: var(--space-md) 0;
+}
+strong {
+font-weight: 600;
+}
+em {
+font-style: italic;
+}
+
+a {
+color: var(--color-link);
+text-decoration: none;
+}
+a:hover {
+color: var(--color-link-hover);
+text-decoration: underline;
+}
+
+ul,
+ol {
+margin: var(--space-md) 0 var(--space-md) var(--space-lg);
+}
+li {
+margin: var(--space-xs) 0;
+}
+
+code {
+font-family: var(--font-mono);
+font-size: 0.95em;
+background-color: var(--color-inline-code-bg);
+padding: 0.2em 0.4em;
+border-radius: var(--border-radius-sm);
+}
+pre {
+background-color: var(--color-pre-bg);
+color: var(--color-pre-text);
+padding: var(--space-md);
+margin: var(--space-lg) 0;
+border-radius: var(--border-radius-md);
+overflow-x: auto;
+}
+pre code {
+background: none;
+padding: 0;
+color: inherit;
+font-size: 0.9em;
+}
+
+blockquote {
+margin: var(--space-lg) 0;
+padding-left: var(--space-md);
+border-left: 4px solid var(--color-blockquote-border);
+background-color: var(--color-blockquote-bg);
+color: var(--color-muted);
+}
+
+table {
+width: 100%;
+border-collapse: collapse;
+margin: var(--space-lg) 0;
+}
+th,
+td {
+border: 1px solid var(--color-border);
+padding: var(--space-sm) var(--space-md);
+text-align: left;
+}
+th {
+background-color: var(--color-table-header-bg);
+font-weight: 600;
+}
+
+hr {
+border: none;
+border-top: 1px solid var(--color-border);
+margin: var(--space-xl) 0;
+}
+img {
+max-width: 100%;
+height: auto;
+margin: var(--space-lg) 0;
+}
+.footnotes {
+font-size: 0.9em;
+color: var(--color-muted);
+border-top: 1px solid var(--color-border);
+margin-top: var(--space-xl);
+}
+pre.sourceCode {
+overflow: auto;
+background-color: var(--color-pre-bg);
+color: var(--color-pre-text);
+padding: var(--space-md);
+border-radius: var(--border-radius-md);
+}
+pre.sourceCode>code {
+background: none;
+}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">uebung-job-cronjob</h1>
+</header>
+<h1 id="übung-jobcronjob">Übung Job/CronJob</h1>
+<p>In dieser Übung wollen wir uns mit Jobs bzw. CronJobs in einem
+Kubernetes Cluster beschäftigen und wie deren Verhalten ist.</p>
+<h2 id="übersicht-was-ein-jobcronjob-genau-ist">Übersicht: Was ein
+Job/CronJob genau ist</h2>
+<p>Ein Job wird verwendet, um <strong>einmalige</strong>, <strong>nicht
+wiederkehrende Aufgaben</strong> auszuführen. Einsatzszenarien: -
+Datenmigration oder einmalige Datenverarbeitung. - Ein Skript ausführen,
+das einmalig eine Konfiguration berechnet oder Änderungen in einer
+Datenbank durchführt. - Temporäre Task-Execution, z.B. Verarbeitung
+einer Warteschlange.</p>
+<p>Ein CronJob erzeugt Jobs nach einem <strong>definierten
+Zeitplan</strong> und ist für <strong>regelmäßig wiederkehrende
+Aufgaben</strong> geeignet. Einsatzszenarien: - Automatische Sicherung
+von Datenbanken oder Systemen (z.B. täglich um Mitternacht). -
+Regelmäßiges Abrufen und Speichern von Daten aus einer API oder einem
+externen Service. - Periodische Bereinigung von Logs oder alten
+Datenbanken-Inhalten.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Funktion</th>
+<th style="text-align: left;">Beispiel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Zeige alle Jobs</td>
+<td style="text-align: left;"><em>kubectl get jobs</em></td>
+</tr>
+<tr>
+<td style="text-align: left;">Zeige alle CronJobs</td>
+<td style="text-align: left;"><em>kubectl get cronjobs</em></td>
+</tr>
+<tr>
+<td style="text-align: left;">Beschreibung Abrufen</td>
+<td style="text-align: left;"><em>kubectl describe job job</em></td>
+</tr>
+</tbody>
+</table>
+<h2 id="job">Job</h2>
+<p>Erstelle mit <code>kubectl create ...</code> ein Job mit den
+folgenden Eigenschaften oder verwende das vorgefertigte Manifest
+(<code>yaml/random-fail.yaml</code>). - Name: random-fail - Image: bash
+- Command:
+<code>bash -c &#39;env; [[ &quot;$(( $RANDOM %2))&quot; == &quot;1&quot; ]] &amp;&amp; exit 0 || exit 1&#39;</code></p>
+<ul>
+<li>Wie wird in Kubernetes ein fehlerhafter Pod festgestellt?</li>
+</ul>
+<p>Führen Sie die nachfolgenden Szenarien an dem Manifest
+(<code>yaml/random-fail.yaml</code>) durch. Belassen Sie die Änderungen
+der einzelnen Szenarien. Vergessen Sie nicht, den Job wieder zu löschen
+und dann zu deployen.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> delete <span class="at">-f</span> yaml/random-fail.yaml</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> apply <span class="at">-f</span> yaml/random-fail.yaml</span></code></pre></div>
+<p>Szenario 1: - Erhöhen Sie die Anzahl der <em>completions</em> auf 10,
+was wird passieren? - Erhöhen Sie danach <em>parallelism</em> auf 4. was
+wird passieren? - Speichern Sie sich den log eines beliebigen Pods
+(<code>kubectl logs random-fail-... &gt; random-fail.log</code>)</p>
+<p>Szenario 2: - Setzen Sie den <em>completionMode</em> von
+<code>NonIndexed</code> auf <code>Indexed</code>. - Wie verändern sich
+die Pods? - Speichern Sie nochmals einen log eines beliebigen Pods
+(<code>kubectl logs random-fail-... &gt; random-fail.log1</code>),
+achten Sie darauf in eine neue Datei zu schreiben. - was fällt auf bei
+einem diff der logs
+(<code>diff random-fail.log random-fail.log1</code>)</p>
+<h3 id="job-cleanup">Job Cleanup</h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> delete <span class="at">-f</span> yaml/random-fail.yaml</span></code></pre></div>
+<h2 id="cronjob">Cronjob</h2>
+<p>Erstellen Sie das Deployment httpbin, das eine Anwendung mit einer
+einfachen API für Testing bereitstellt (Online:
+https://httpbin.org/).</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> apply <span class="at">-f</span> yaml/httpbin.yaml</span></code></pre></div>
+<p>Verwenden Sie kubectl und finden Sie die IP-Adresse des neuen
+httpbin-Pods heraus. (<code>kubectl get ...</code>) Ersetzen Sie in dem
+<code>yaml/curl-cronjob.yaml</code> Manifest den Platzhalter
+<code>&lt;HTTPBIN_POD_IP&gt;</code> mit der richtigen IP des Pods.</p>
+<ul>
+<li>Wie oft wird ein Job durch den CronJob erstellt?</li>
+<li>Für was könnte die Einstellung <em>ttlSecondsAfterFinished</em> im
+Manifest stehen?</li>
+<li>Was genau macht der Container/Pod des Jobs?</li>
+<li>Wann wird der erste Pod ausgeführt?</li>
+</ul>
+<blockquote>
+<p><strong>Hinweis:</strong> Falls Sie mit der Linux-Cron Syntax nicht
+vertraut sind, bietet https://crontab.guru/ eine gute Hilfestellung.</p>
+</blockquote>
+<p>Wenden Sie das angepasste Manifest an und überprüfen Sie ihre
+Annahmen.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> apply <span class="at">-f</span> yaml/curl-cronjob.yaml</span></code></pre></div>
+<ul>
+<li>Wie sind die Jobs/Pods benannt?</li>
+</ul>
+<h3 id="cleanup-cronjob">Cleanup CronJob</h3>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> delete <span class="at">-f</span> yaml/curl-cronjob.yaml</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> delete <span class="at">-f</span> yaml/httpbin.yaml</span></code></pre></div>
+</body>
+</html>

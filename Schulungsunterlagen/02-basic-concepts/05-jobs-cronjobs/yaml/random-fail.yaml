@@ -1,0 +1,19 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: random-fail
+spec:
+  backoffLimit: 6
+  completionMode: NonIndexed
+  completions: 1
+  parallelism: 1
+  template:
+    spec:
+      containers:
+      - command:
+        - bash
+        - -c
+        - 'env; [[ "$(( $RANDOM %2))" == "1" ]] && exit 0 || exit 1'
+        image: bash
+        name: random-fail
+      restartPolicy: Never

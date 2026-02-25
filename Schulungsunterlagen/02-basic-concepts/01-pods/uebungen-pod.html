@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>uebungen-pod</title>
+  <style>
+
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+  <style type="text/css">
+:root {
+--space-xs: 0.25rem;
+--space-sm: 0.5rem;
+--space-md: 1rem;
+--space-lg: 1.5rem;
+--space-xl: 2.5rem;
+--content-width: 860px;
+--border-radius-sm: 4px;
+--border-radius-md: 6px;
+}
+:root {
+--font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI",
+Roboto, Helvetica, Arial, sans-serif;
+--font-mono: "SFMono-Regular", Consolas, "Liberation Mono",
+Menlo, monospace;
+--font-size-base: 16px;
+--line-height-base: 1.65;
+}
+:root {
+--color-bg: #ffffff;
+--color-text: #1f2933;
+--color-muted: #4b5563;
+--color-border: #e5e7eb;
+--color-border-strong: #d1d5db;
+--color-link: #2563eb;
+--color-link-hover: #1d4ed8;
+--color-inline-code-bg: #f3f4f6;
+--color-blockquote-bg: #f8fafc;
+--color-blockquote-border: #93c5fd;
+--color-pre-bg: #0f172a;
+--color-pre-text: #e5e7eb;
+--color-table-header-bg: #f3f4f6;
+}
+@media (prefers-color-scheme: dark) {
+:root {
+--color-bg: #0b1020;
+--color-text: #e5e7eb;
+--color-muted: #9ca3af;
+--color-border: #1f2937;
+--color-border-strong: #374151;
+--color-link: #60a5fa;
+--color-link-hover: #93c5fd;
+--color-inline-code-bg: #1f2937;
+--color-blockquote-bg: #0f172a;
+--color-blockquote-border: #60a5fa;
+--color-pre-bg: #020617;
+--color-pre-text: #e5e7eb;
+--color-table-header-bg: #020617;
+}
+}
+
+html {
+font-size: var(--font-size-base);
+}
+body {
+font-family: var(--font-sans);
+line-height: var(--line-height-base);
+color: var(--color-text);
+background-color: var(--color-bg);
+margin: 0 auto;
+padding: var(--space-xl);
+max-width: var(--content-width);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+font-weight: 600;
+line-height: 1.3;
+margin-top: 2.2em;
+margin-bottom: var(--space-sm);
+}
+h1 {
+font-size: 2.2rem;
+border-bottom: 2px solid var(--color-border);
+padding-bottom: var(--space-xs);
+}
+h2 {
+font-size: 1.75rem;
+border-bottom: 1px solid var(--color-border);
+padding-bottom: var(--space-xs);
+}
+h3 {
+font-size: 1.4rem;
+}
+h4 {
+font-size: 1.15rem;
+color: var(--color-muted);
+}
+
+p {
+margin: var(--space-md) 0;
+}
+strong {
+font-weight: 600;
+}
+em {
+font-style: italic;
+}
+
+a {
+color: var(--color-link);
+text-decoration: none;
+}
+a:hover {
+color: var(--color-link-hover);
+text-decoration: underline;
+}
+
+ul,
+ol {
+margin: var(--space-md) 0 var(--space-md) var(--space-lg);
+}
+li {
+margin: var(--space-xs) 0;
+}
+
+code {
+font-family: var(--font-mono);
+font-size: 0.95em;
+background-color: var(--color-inline-code-bg);
+padding: 0.2em 0.4em;
+border-radius: var(--border-radius-sm);
+}
+pre {
+background-color: var(--color-pre-bg);
+color: var(--color-pre-text);
+padding: var(--space-md);
+margin: var(--space-lg) 0;
+border-radius: var(--border-radius-md);
+overflow-x: auto;
+}
+pre code {
+background: none;
+padding: 0;
+color: inherit;
+font-size: 0.9em;
+}
+
+blockquote {
+margin: var(--space-lg) 0;
+padding-left: var(--space-md);
+border-left: 4px solid var(--color-blockquote-border);
+background-color: var(--color-blockquote-bg);
+color: var(--color-muted);
+}
+
+table {
+width: 100%;
+border-collapse: collapse;
+margin: var(--space-lg) 0;
+}
+th,
+td {
+border: 1px solid var(--color-border);
+padding: var(--space-sm) var(--space-md);
+text-align: left;
+}
+th {
+background-color: var(--color-table-header-bg);
+font-weight: 600;
+}
+
+hr {
+border: none;
+border-top: 1px solid var(--color-border);
+margin: var(--space-xl) 0;
+}
+img {
+max-width: 100%;
+height: auto;
+margin: var(--space-lg) 0;
+}
+.footnotes {
+font-size: 0.9em;
+color: var(--color-muted);
+border-top: 1px solid var(--color-border);
+margin-top: var(--space-xl);
+}
+pre.sourceCode {
+overflow: auto;
+background-color: var(--color-pre-bg);
+color: var(--color-pre-text);
+padding: var(--space-md);
+border-radius: var(--border-radius-md);
+}
+pre.sourceCode>code {
+background: none;
+}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">uebungen-pod</h1>
+</header>
+<h1 id="pods">Pods</h1>
+<p>In dieser Übung erstellen Sie einen ersten einfachen Pod. Dazu werden
+wir das nginx image benutzen, das automatisch von dem docker hub
+heruntergeladen wird. Als erstes erstelle ein Verzeichnis, in dem wir
+unsere Objekte ablegen. Dies dient zur besseren Übersicht /
+Struktur.</p>
+<h2 id="vorbereitung">Vorbereitung</h2>
+<p>Falls noch nicht geschehen, machen Sie sich mit den folgenden
+Kommandos einen Überblick über ihre Umgebung.</p>
+<ul>
+<li>ssh zu den verschiedenen Knoten</li>
+<li>uptime</li>
+<li>top/htop/ps</li>
+<li>memory</li>
+<li>disks (blkid/df/lsblk)</li>
+<li>ip</li>
+<li>Linux version (cat /etc/*release - uname -a)</li>
+<li><a href="https://www.ionos.de/digitalguide/server/konfiguration/linux-befehle-terminal-kommandos-im-ueberblick/">Zusätzliche
+Kommandos</a></li>
+</ul>
+<p>Ein Kubernetes Cluster sollte jetzt bereit stehen, mit dem wir
+interagieren können.</p>
+<p>Wenn man wissen möchte, mit welcher Version man aktuell Arbeitet kann
+man kubectl verwenden:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> version</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> cluster-info</span></code></pre></div>
+<p>Als nächstes prüfen wir zuerst, ob der Cluster soweit läuft bzw. die
+Knoten alle auf “ready” stehen.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> get nodes</span></code></pre></div>
+<p>Um zu erfahren, welche Pods eventuell schon im Cluster / Default
+namespace laufen:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> get pods</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> get pods <span class="at">-A</span> <span class="co">#zeigt alle Pods an, die im Cluster aktuell laufen.</span></span></code></pre></div>
+<h2 id="einfacher-pod">Einfacher Pod</h2>
+<p>Erstelle nun mit folgender Datei den ersten Pod:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vi</span> erster-pod.yaml</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apiVersion</span><span class="kw">:</span><span class="at"> v1</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">kind</span><span class="kw">:</span><span class="at"> Pod</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">metadata</span><span class="kw">:</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">name</span><span class="kw">:</span><span class="at"> myfirstpod</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">labels</span><span class="kw">:</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">app</span><span class="kw">:</span><span class="at"> web</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="fu">spec</span><span class="kw">:</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">containers</span><span class="kw">:</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> myfirstcontainer</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">image</span><span class="kw">:</span><span class="at"> nginx</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">ports</span><span class="kw">:</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> </span><span class="fu">containerPort</span><span class="kw">:</span><span class="at"> </span><span class="dv">80</span></span></code></pre></div>
+<p>Hinweis: Beachte die richtige Einrückung (Indentation), da dies bei
+YAML-Dateien sehr wichtig ist! Nun wird diese Datei an die Kubernetes
+API übergeben und der Pod wird erstellt. Kubernetes sorgt dafür, dass
+das Image gezogen und auf einem der Knoten der Pod gestartet wird.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> apply <span class="at">-f</span> erster-pod.yaml</span></code></pre></div>
+<p>Danach check:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> get pods</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> describe pod myfirstpod</span></code></pre></div>
+<p>Jetzt überprüft wir, ob der Pod bzw. die Applikation, die der
+Container enthält läuft.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> exec myfirstpod <span class="at">--</span> service nginx status</span></code></pre></div>
+<p>Wenn alles richtig ist, kommt eine Meldung: “nginx is running”</p>
+<p>Wenn der Pod dann nicht mehr benötigt wird, kann man diesen wie folgt
+löschen:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> delete pod myfirstpod</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># oder</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> delete <span class="at">-f</span> erster-pod.yaml</span></code></pre></div>
+<h2 id="kubectl-und-optionen">kubectl und Optionen</h2>
+<p>Anstelle der YAML-Datei kann man auch recht einfach mit
+<code>kubectl</code> ein Pod starten:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> run myfirstpod <span class="at">--image</span> nginx</span></code></pre></div>
+<p><code>kubectl</code> besitzt eine umfassende Liste an Optionen die
+wir testen möchten.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> get pod <span class="at">-o</span> wide</span></code></pre></div>
+<ul>
+<li>Was wird zusätzlich angezeigt?</li>
+<li>Auf welchem Node läuft die Anwendung?</li>
+</ul>
+<div class="sourceCode" id="cb12"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> get pods <span class="at">--all-namespaces</span></span></code></pre></div>
+<ul>
+<li>In welchem Namespace läuft unser Pod?</li>
+<li>Welche Pods aus welchen Namespaces werden noch angezeigt?</li>
+</ul>
+<div class="sourceCode" id="cb13"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> get namespaces</span></code></pre></div>
+<ul>
+<li>gibt Liste aus der vorhandenen Namespaces</li>
+</ul>
+<div class="sourceCode" id="cb14"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> get pod myfirstpod <span class="at">-o</span> yaml</span></code></pre></div>
+<p>Hinweis zu image – herkunft, name, state, ip…</p>
+<blockquote>
+<p><strong>Hinweis:</strong> Auch für troubleshooting ist folgender
+Befehl ganz gut um Infos über ein Pod zu bekommen.
+<code>kubectl describe pod $POD_NAME</code> ( –n “namespace” nur, wenn
+der pod nicht im aktuellen default läuft)</p>
+</blockquote>
+<p>Erklärung der möglichen Einstellungen beim Pod:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> explain pod</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> explain pod.metadata</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># komplette Objektdefinition ausgeben</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> explain pod <span class="at">--recursive</span></span></code></pre></div>
+<p>Für Fehlersuche immer gut: zusätzliches Terminalfenster erstellen und
+folgenden Befehl:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> get pod <span class="at">--watch</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co"># kubectl get pod -w</span></span></code></pre></div>
+<p>Damit kann ‘live’ beobachtet werden, wenn man zB ein Pod verändert
+(erneutes apply)</p>
+<p>Eine Liste der Pods erstellen, sortiert nach Name:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> get pods <span class="at">--sort-by</span><span class="op">=</span>metadata.name</span></code></pre></div>
+<h3 id="pod-zugriff">Pod Zugriff</h3>
+<p>Wir haben in diesem Beispiel eine NGINX-Anwendung im Pod am laufen
+und können diese ansprechen. Der Schwerpunkt liegt darauf, den Pod
+direkt über seine <strong>Pod-IP</strong> sowie über
+<strong>Port-Forwarding</strong> mit <code>curl</code> zu erreichen.
+Diese Zugriffsarten ermöglichen im Development eine schnelle und
+einfache Möglichkeit eine Anwendung zu testen. Service-Ressource stellen
+eine weitere Möglichkeit dar, einen Zugriff auf die Anwendung zu</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get POD_IP</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co"># from cluster-node (controlplane or worker)</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="va">$POD_IP</span></span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># from admin (kubectl installed and proper kubeconfig)</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> port-forwarding myfirstpod 8080:80</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co"># new terminal</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> localhost:8080</span></code></pre></div>
+<h3 id="pod-logs">Pod Logs</h3>
+<p>Log eines Pods anschauen:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> logs myfirstpod</span></code></pre></div>
+<h2 id="cleanup">Cleanup</h2>
+<div class="sourceCode" id="cb21"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> delete pod myfirstpod</span></code></pre></div>
+<h2 id="pod-vorlagenbeispiele">Pod Vorlagen/Beispiele</h2>
+<p>Hier noch die Vorlage eines busybox pods mit Argumenten zur
+Ausführung des Containers.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apiVersion</span><span class="kw">:</span><span class="at"> v1</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">kind</span><span class="kw">:</span><span class="at"> Pod</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">metadata</span><span class="kw">:</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">creationTimestamp</span><span class="kw">:</span><span class="at"> </span><span class="ch">null</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">labels</span><span class="kw">:</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">run</span><span class="kw">:</span><span class="at"> busybox</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">name</span><span class="kw">:</span><span class="at"> busybox</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="fu">spec</span><span class="kw">:</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">containers</span><span class="kw">:</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">args</span><span class="kw">:</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> /bin/sh</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> -c</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> sleep 3600</span></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">image</span><span class="kw">:</span><span class="at"> busybox</span></span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">name</span><span class="kw">:</span><span class="at"> busybox</span></span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">resources</span><span class="kw">:</span><span class="at"> </span><span class="kw">{}</span></span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">dnsPolicy</span><span class="kw">:</span><span class="at"> ClusterFirst</span></span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">restartPolicy</span><span class="kw">:</span><span class="at"> Never</span></span></code></pre></div>
+</body>
+</html>

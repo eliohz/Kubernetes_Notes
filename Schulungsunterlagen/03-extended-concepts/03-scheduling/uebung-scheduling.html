@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>uebung-scheduling</title>
+  <style>
+
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+  <style type="text/css">
+:root {
+--space-xs: 0.25rem;
+--space-sm: 0.5rem;
+--space-md: 1rem;
+--space-lg: 1.5rem;
+--space-xl: 2.5rem;
+--content-width: 860px;
+--border-radius-sm: 4px;
+--border-radius-md: 6px;
+}
+:root {
+--font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI",
+Roboto, Helvetica, Arial, sans-serif;
+--font-mono: "SFMono-Regular", Consolas, "Liberation Mono",
+Menlo, monospace;
+--font-size-base: 16px;
+--line-height-base: 1.65;
+}
+:root {
+--color-bg: #ffffff;
+--color-text: #1f2933;
+--color-muted: #4b5563;
+--color-border: #e5e7eb;
+--color-border-strong: #d1d5db;
+--color-link: #2563eb;
+--color-link-hover: #1d4ed8;
+--color-inline-code-bg: #f3f4f6;
+--color-blockquote-bg: #f8fafc;
+--color-blockquote-border: #93c5fd;
+--color-pre-bg: #0f172a;
+--color-pre-text: #e5e7eb;
+--color-table-header-bg: #f3f4f6;
+}
+@media (prefers-color-scheme: dark) {
+:root {
+--color-bg: #0b1020;
+--color-text: #e5e7eb;
+--color-muted: #9ca3af;
+--color-border: #1f2937;
+--color-border-strong: #374151;
+--color-link: #60a5fa;
+--color-link-hover: #93c5fd;
+--color-inline-code-bg: #1f2937;
+--color-blockquote-bg: #0f172a;
+--color-blockquote-border: #60a5fa;
+--color-pre-bg: #020617;
+--color-pre-text: #e5e7eb;
+--color-table-header-bg: #020617;
+}
+}
+
+html {
+font-size: var(--font-size-base);
+}
+body {
+font-family: var(--font-sans);
+line-height: var(--line-height-base);
+color: var(--color-text);
+background-color: var(--color-bg);
+margin: 0 auto;
+padding: var(--space-xl);
+max-width: var(--content-width);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+font-weight: 600;
+line-height: 1.3;
+margin-top: 2.2em;
+margin-bottom: var(--space-sm);
+}
+h1 {
+font-size: 2.2rem;
+border-bottom: 2px solid var(--color-border);
+padding-bottom: var(--space-xs);
+}
+h2 {
+font-size: 1.75rem;
+border-bottom: 1px solid var(--color-border);
+padding-bottom: var(--space-xs);
+}
+h3 {
+font-size: 1.4rem;
+}
+h4 {
+font-size: 1.15rem;
+color: var(--color-muted);
+}
+
+p {
+margin: var(--space-md) 0;
+}
+strong {
+font-weight: 600;
+}
+em {
+font-style: italic;
+}
+
+a {
+color: var(--color-link);
+text-decoration: none;
+}
+a:hover {
+color: var(--color-link-hover);
+text-decoration: underline;
+}
+
+ul,
+ol {
+margin: var(--space-md) 0 var(--space-md) var(--space-lg);
+}
+li {
+margin: var(--space-xs) 0;
+}
+
+code {
+font-family: var(--font-mono);
+font-size: 0.95em;
+background-color: var(--color-inline-code-bg);
+padding: 0.2em 0.4em;
+border-radius: var(--border-radius-sm);
+}
+pre {
+background-color: var(--color-pre-bg);
+color: var(--color-pre-text);
+padding: var(--space-md);
+margin: var(--space-lg) 0;
+border-radius: var(--border-radius-md);
+overflow-x: auto;
+}
+pre code {
+background: none;
+padding: 0;
+color: inherit;
+font-size: 0.9em;
+}
+
+blockquote {
+margin: var(--space-lg) 0;
+padding-left: var(--space-md);
+border-left: 4px solid var(--color-blockquote-border);
+background-color: var(--color-blockquote-bg);
+color: var(--color-muted);
+}
+
+table {
+width: 100%;
+border-collapse: collapse;
+margin: var(--space-lg) 0;
+}
+th,
+td {
+border: 1px solid var(--color-border);
+padding: var(--space-sm) var(--space-md);
+text-align: left;
+}
+th {
+background-color: var(--color-table-header-bg);
+font-weight: 600;
+}
+
+hr {
+border: none;
+border-top: 1px solid var(--color-border);
+margin: var(--space-xl) 0;
+}
+img {
+max-width: 100%;
+height: auto;
+margin: var(--space-lg) 0;
+}
+.footnotes {
+font-size: 0.9em;
+color: var(--color-muted);
+border-top: 1px solid var(--color-border);
+margin-top: var(--space-xl);
+}
+pre.sourceCode {
+overflow: auto;
+background-color: var(--color-pre-bg);
+color: var(--color-pre-text);
+padding: var(--space-md);
+border-radius: var(--border-radius-md);
+}
+pre.sourceCode>code {
+background: none;
+}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">uebung-scheduling</h1>
+</header>
+<h1 id="kubernetes-scheduling">Kubernetes Scheduling</h1>
+<p>In dem Bereich Scheduling wollen wir uns etwas genauer anschauen, wie
+Kubernetes mit den Pods umgeht und wie diese verteilt werden.</p>
+<h2 id="manuelle-verteilung-hard-coded">1. Manuelle Verteilung (hard
+coded)</h2>
+<p>Mit diesem einfachen Pod-Manifest möchten wir das manuelle Scheduling
+demonstrieren.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apiVersion</span><span class="kw">:</span><span class="at"> v1</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">kind</span><span class="kw">:</span><span class="at"> Pod</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">metadata</span><span class="kw">:</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">name</span><span class="kw">:</span><span class="at"> nodename-pod</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">labels</span><span class="kw">:</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">app</span><span class="kw">:</span><span class="at"> nginx</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">spec</span><span class="kw">:</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">containers</span><span class="kw">:</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> nginx</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">image</span><span class="kw">:</span><span class="at"> nginx</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">nodeName</span><span class="kw">:</span><span class="at"> NODENAME</span></span></code></pre></div>
+<p>Erstellen Sie die YAML-Datei und passen Sie entsprechend dem Cluster
+die <code>nodeName</code>-Einstellung an. Senden Sie es mit
+<code>kubectl apply -f ...</code> an den API Server.</p>
+<p>Durch die Angabe von <code>nodeName</code> im Manifest wird der
+Scheduling - Prozess sozusagen ausser Kraft gesetzt. Der Pod wird nur
+auf den angegebenen Node verteilt. Sollte da kein Platz mehr sein, wird
+der Pod als “pending” gesetzt. - Was passiert wenn man anstelle der
+Worker-Nodes die ControlPlane angibt?</p>
+<h2 id="nodeselector">2. NodeSelector</h2>
+<p>Anstelle des <code>nodeName</code> Attributs wird das
+<code>nodeSelector</code> Attribut verwendet.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apiVersion</span><span class="kw">:</span><span class="at"> v1</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">kind</span><span class="kw">:</span><span class="at"> Pod</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">metadata</span><span class="kw">:</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">name</span><span class="kw">:</span><span class="at"> nodeselector-pod</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">spec</span><span class="kw">:</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">containers</span><span class="kw">:</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> nginx</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">image</span><span class="kw">:</span><span class="at"> nginx</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">nodeSelector</span><span class="kw">:</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">size</span><span class="kw">:</span><span class="at"> small</span></span></code></pre></div>
+<p>Der Scheduler filtert anhand des Labels die passenden Knoten heraus,
+welche für den Pod infrage kommen. Existiert kein Knoten mit dem Label,
+bleibt der Pod im <em>pending</em>-Status. Mit
+<code>kubectl lable ...</code> können wir ein Label auf den Knoten
+anbringen.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> label nodes <span class="va">$NODE_NAME</span> size=small</span></code></pre></div>
+<p>prüfen, ob korrekt:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> get nodes <span class="at">--show-labels</span></span></code></pre></div>
+<blockquote>
+<p><strong>Hinweis:</strong> Zum Löschen von Labels wird ein lediglich
+ein - (Hyphen) hinter den Label-Name gestellt. Für das gezeigte
+Beispiels sieht dies so aus
+<code>kubectl label nodes $NODE_NAME size-</code></p>
+</blockquote>
+<p>Der Scheduler sucht entsprechend dem Label den passenden Knoten für
+den Pod. - Was passiert wenn man nur die ControlPlane wieder labelt?</p>
+<h2 id="taints-tolerations">3. Taints &amp; Tolerations</h2>
+<p>In Kubernetes dienen <em>Taints</em> und <em>Tolerations</em> dazu,
+die Platzierung von Pods auf Nodes gezielt zu steuern. Mit
+<em>Taints</em> können bestimmte Nodes „markiert“ werden, sodass nur
+Pods mit passenden <em>Tolerations</em> darauf ausgeführt werden dürfen.
+Dieses Konzept hilft, spezielle Ressourcen zu reservieren, sensible
+Workloads zu isolieren oder ungewollte Platzierungen zu vermeiden.</p>
+<p>Erstelle ein einfaches nginx-Deployment mit vier Replicas
+<code>kubectl create deployment nginx --image=nginx</code>. - Was kann
+man feststellen?</p>
+<p>Welches Taint ist auf <em>cp-01</em> gesetzt und was ist entsprechend
+in den Pods, Deployments angegeben damit diese auf cp-01 ausgeführt
+werden?</p>
+<blockquote>
+<p><strong>Hinweis:</strong><br />
+Es gibt eine Vielzahl an vordefinierten Labels,Taints und Annotationen
+(<a href="https://kubernetes.io/docs/reference/labels-annotations-taints/">Kubernetes.io
+- Well-Known Labels, Annotations and Taints</a>)</p>
+</blockquote>
+<p>Möchte man die Knoten seines Clusters entsprechend mit Taints
+gestalten, kann man dies <code>kubectl taint ...</code> durchführen.
+Machen Sie den Knoten <code>w-02</code> nur für das
+<code>team=dev:...</code> planbar, bestehender workload sollte nicht
+beeinträchtigt werden (<code>NoSchedule</code>). - Was ist nach dem
+Anbringen von dem taint bei den nginx-Pods zu beobachten Skalieren Sie
+dann nochmals das nginx-Deployment erst auf 0 und dann nochmals auf 4. -
+Was kann man feststellen?</p>
+<p>Erstellen Sie dann im zweiten Schritt einen neues Deployment
+<code>httpd</code> mit dem image <code>httpd</code> und fügen sie im
+zweiten Schritt mit <code>kubectl edit ...</code> (oder gerne auch mit
+<code>kubectl patch ...</code>) die folgenden Zeilen entsprechend in die
+Pod-Spec des Deployments ein.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ...</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">tolerations</span><span class="kw">:</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">key</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;team&quot;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">operator</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Equal&quot;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">value</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;dev&quot;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">effect</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;NoSchedule&quot;</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># ...</span></span></code></pre></div>
+<p>Erhöhe Schritt für Schritt die Anzahl der Replicas von dem
+<em>httpd</em>-Deployment. - Was kann man beobachten?</p>
+<p>Als letztes wollen wir noch den Knoten w-01 nur für
+Produktiv-Workload (<code>team=prod</code>)einrichten, bestehende Pods
+sollen dabei verdrängt werden (<code>NoExecute</code>). - Wie ist
+vorzugehen bzw. welchen Effekt müssen wir setzen? - Was passiert beim
+anwenden? - Welche der Systemkomponente des Clusters könnte dieses Taint
+betreffen (kube-apiserver, kube-scheduler, kube-proxy, …) und hatte es
+Auswirkungen?</p>
+<h3 id="cleanup">Cleanup</h3>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> delete deployments httpd</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> delete deployments nginx</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> taint node w-01 team-</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> taint node w-02 team-</span></code></pre></div>
+<blockquote>
+<p><strong>WICHTIG:</strong> Nach dem Beenden der Übung die Taints auf
+den Knoten wieder entfernen mit
+<code>kubectl taint node $NODE team-</code>.</p>
+</blockquote>
+<h2 id="affinity">4. Affinity</h2>
+<h3 id="node-affinity">4.1 Node Affinity</h3>
+<p>Erstelle folgenden Pod als Beispiel für eine node affinity:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apiVersion</span><span class="kw">:</span><span class="at"> v1</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">kind</span><span class="kw">:</span><span class="at"> Pod</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">metadata</span><span class="kw">:</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">name</span><span class="kw">:</span><span class="at"> required-affinity-pod</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">spec</span><span class="kw">:</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">containers</span><span class="kw">:</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> nginx</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">image</span><span class="kw">:</span><span class="at"> nginx</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">affinity</span><span class="kw">:</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">nodeAffinity</span><span class="kw">:</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">requiredDuringSchedulingIgnoredDuringExecution</span><span class="kw">:</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">nodeSelectorTerms</span><span class="kw">:</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> </span><span class="fu">matchExpressions</span><span class="kw">:</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="kw">-</span><span class="at"> </span><span class="fu">key</span><span class="kw">:</span><span class="at"> region</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="at">            </span><span class="fu">operator</span><span class="kw">:</span><span class="at"> In</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="at">            </span><span class="fu">values</span><span class="kw">:</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="at">            </span><span class="kw">-</span><span class="at"> german-south</span></span></code></pre></div>
+<p>Wie bereits zuvor mit dem NodeSelector Beispiel muss der Knoten
+gelabelt sein, damit das funktioniert.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> label nodes <span class="va">$NODE_NAME</span> region=german-south</span></code></pre></div>
+<p>Mit <code>kubectl apply -f ...</code> das erstellte Pod-Manifest an
+den API Server schicken.</p>
+<h3 id="nice-to-have-node-affinity">4.2 nice to have node affinity</h3>
+<p>Der Scheduler wird versuchen, den Pod auf einem Knoten zu platzieren,
+der die Kriterien erfüllt. Wenn jedoch keine solchen Knoten verfügbar
+sind, kann der Pod auch auf einem anderen Knoten eingeplant werden, der
+die Präferenz nicht erfüllt.</p>
+<p>Erstelle folgendes Beispiel dafür:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apiVersion</span><span class="kw">:</span><span class="at"> v1</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">kind</span><span class="kw">:</span><span class="at"> Pod</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">metadata</span><span class="kw">:</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">name</span><span class="kw">:</span><span class="at"> preferred-affinity-pod</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">spec</span><span class="kw">:</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">containers</span><span class="kw">:</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> nginx</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">image</span><span class="kw">:</span><span class="at"> nginx</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">affinity</span><span class="kw">:</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">nodeAffinity</span><span class="kw">:</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">preferredDuringSchedulingIgnoredDuringExecution</span><span class="kw">:</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">weight</span><span class="kw">:</span><span class="at"> </span><span class="dv">1</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">preference</span><span class="kw">:</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="fu">matchExpressions</span><span class="kw">:</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="kw">-</span><span class="at"> </span><span class="fu">key</span><span class="kw">:</span><span class="at"> region</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="at">            </span><span class="fu">operator</span><span class="kw">:</span><span class="at"> In</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="at">            </span><span class="fu">values</span><span class="kw">:</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="at">            </span><span class="kw">-</span><span class="at"> german-north</span></span></code></pre></div>
+<p>Mit <code>kubectl apply -f ...</code> an den API Server schicken.</p>
+<p>In diesem Beispiel findet er keinen node mit dem label, aber der pod
+wird trotzdem verteilt.</p>
+<h3 id="node-anti-affinity">4.3 Node Anti Affinity</h3>
+<p>Wie der Name schon sagt, ist das das Gegenteil von Node Affinity. Sie
+stellt sicher, dass ein Pod nicht auf bestimmten Knoten basierend auf
+Knotenkennzeichnungen eingeplant wird. Dies ist besonders nützlich, wenn
+Sie vermeiden möchten, dass bestimmte Arbeitslasten auf bestimmten
+Knoten platziert werden, z.B. um hochverfügbare Anwendungen von Knoten
+mit weniger zuverlässiger Hardware fernzuhalten.</p>
+<h3 id="cleanup-1">Cleanup</h3>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> delete pod required-affinity-pod</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> delete pod preferred-affinity-pod</span></code></pre></div>
+<h2 id="referenzen">Referenzen</h2>
+<ul>
+<li><a href="https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/">kubernetes.io
+- Concept: Taint and Toleration</a></li>
+<li><a href="https://kubernetes.io/docs/reference/labels-annotations-taints/">kubernetes.io
+- Well-Known Labels, Annotations and Taints</a></li>
+</ul>
+</body>
+</html>

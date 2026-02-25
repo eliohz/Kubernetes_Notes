@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: burstable-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: burstable-deployment
+  template:
+    metadata:
+      labels:
+        app: burstable-deployment
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: type
+                operator: In
+                values:
+                - request
+      containers:
+      - name: stress-container
+        image: polinux/stress
+        command: ["stress"]
+        args: ["--cpu", "2"]
+        resources:
+          requests:
+            cpu: "250m"
+            memory: "128Mi"
+          limits:
+            cpu: "500m"
+            memory: "256Mi"

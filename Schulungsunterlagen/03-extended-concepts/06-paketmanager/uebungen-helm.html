@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>uebungen-helm</title>
+  <style>
+
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+  <style type="text/css">
+:root {
+--space-xs: 0.25rem;
+--space-sm: 0.5rem;
+--space-md: 1rem;
+--space-lg: 1.5rem;
+--space-xl: 2.5rem;
+--content-width: 860px;
+--border-radius-sm: 4px;
+--border-radius-md: 6px;
+}
+:root {
+--font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI",
+Roboto, Helvetica, Arial, sans-serif;
+--font-mono: "SFMono-Regular", Consolas, "Liberation Mono",
+Menlo, monospace;
+--font-size-base: 16px;
+--line-height-base: 1.65;
+}
+:root {
+--color-bg: #ffffff;
+--color-text: #1f2933;
+--color-muted: #4b5563;
+--color-border: #e5e7eb;
+--color-border-strong: #d1d5db;
+--color-link: #2563eb;
+--color-link-hover: #1d4ed8;
+--color-inline-code-bg: #f3f4f6;
+--color-blockquote-bg: #f8fafc;
+--color-blockquote-border: #93c5fd;
+--color-pre-bg: #0f172a;
+--color-pre-text: #e5e7eb;
+--color-table-header-bg: #f3f4f6;
+}
+@media (prefers-color-scheme: dark) {
+:root {
+--color-bg: #0b1020;
+--color-text: #e5e7eb;
+--color-muted: #9ca3af;
+--color-border: #1f2937;
+--color-border-strong: #374151;
+--color-link: #60a5fa;
+--color-link-hover: #93c5fd;
+--color-inline-code-bg: #1f2937;
+--color-blockquote-bg: #0f172a;
+--color-blockquote-border: #60a5fa;
+--color-pre-bg: #020617;
+--color-pre-text: #e5e7eb;
+--color-table-header-bg: #020617;
+}
+}
+
+html {
+font-size: var(--font-size-base);
+}
+body {
+font-family: var(--font-sans);
+line-height: var(--line-height-base);
+color: var(--color-text);
+background-color: var(--color-bg);
+margin: 0 auto;
+padding: var(--space-xl);
+max-width: var(--content-width);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+font-weight: 600;
+line-height: 1.3;
+margin-top: 2.2em;
+margin-bottom: var(--space-sm);
+}
+h1 {
+font-size: 2.2rem;
+border-bottom: 2px solid var(--color-border);
+padding-bottom: var(--space-xs);
+}
+h2 {
+font-size: 1.75rem;
+border-bottom: 1px solid var(--color-border);
+padding-bottom: var(--space-xs);
+}
+h3 {
+font-size: 1.4rem;
+}
+h4 {
+font-size: 1.15rem;
+color: var(--color-muted);
+}
+
+p {
+margin: var(--space-md) 0;
+}
+strong {
+font-weight: 600;
+}
+em {
+font-style: italic;
+}
+
+a {
+color: var(--color-link);
+text-decoration: none;
+}
+a:hover {
+color: var(--color-link-hover);
+text-decoration: underline;
+}
+
+ul,
+ol {
+margin: var(--space-md) 0 var(--space-md) var(--space-lg);
+}
+li {
+margin: var(--space-xs) 0;
+}
+
+code {
+font-family: var(--font-mono);
+font-size: 0.95em;
+background-color: var(--color-inline-code-bg);
+padding: 0.2em 0.4em;
+border-radius: var(--border-radius-sm);
+}
+pre {
+background-color: var(--color-pre-bg);
+color: var(--color-pre-text);
+padding: var(--space-md);
+margin: var(--space-lg) 0;
+border-radius: var(--border-radius-md);
+overflow-x: auto;
+}
+pre code {
+background: none;
+padding: 0;
+color: inherit;
+font-size: 0.9em;
+}
+
+blockquote {
+margin: var(--space-lg) 0;
+padding-left: var(--space-md);
+border-left: 4px solid var(--color-blockquote-border);
+background-color: var(--color-blockquote-bg);
+color: var(--color-muted);
+}
+
+table {
+width: 100%;
+border-collapse: collapse;
+margin: var(--space-lg) 0;
+}
+th,
+td {
+border: 1px solid var(--color-border);
+padding: var(--space-sm) var(--space-md);
+text-align: left;
+}
+th {
+background-color: var(--color-table-header-bg);
+font-weight: 600;
+}
+
+hr {
+border: none;
+border-top: 1px solid var(--color-border);
+margin: var(--space-xl) 0;
+}
+img {
+max-width: 100%;
+height: auto;
+margin: var(--space-lg) 0;
+}
+.footnotes {
+font-size: 0.9em;
+color: var(--color-muted);
+border-top: 1px solid var(--color-border);
+margin-top: var(--space-xl);
+}
+pre.sourceCode {
+overflow: auto;
+background-color: var(--color-pre-bg);
+color: var(--color-pre-text);
+padding: var(--space-md);
+border-radius: var(--border-radius-md);
+}
+pre.sourceCode>code {
+background: none;
+}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">uebungen-helm</h1>
+</header>
+<h1 id="übungen-helm">Übungen Helm</h1>
+<p>In diesem Tutorial richten wir Helm 3 ein und verwenden es zum
+Installieren, Neukonfigurieren, Zurücksetzen und Löschen einer Instanz
+<a href="https://github.com/kubernetes/dashboard">der Kubernetes
+Dashboard-Anwendung</a>. Das Dashboard ist eine offizielle webbasierte
+Kubernetes-Oberfläche.</p>
+<h2 id="voraussetzungen">Voraussetzungen</h2>
+<p>Für dieses Tutorial benötigen Sie Folgendes:</p>
+<ul>
+<li>Einen Kubernetes-Cluster mit aktivierter rollenbasierter
+Zugriffskontrolle (RBAC).</li>
+<li>Das Befehlszeilentool kubectl, für das eine Verbindung mit Ihrem
+Cluster konfiguriert ist.</li>
+</ul>
+<p>Sie können Ihre Verbindung mit dem folgenden Befehl testen:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> cluster-info</span></code></pre></div>
+<h2 id="installieren-von-helm-cli">1. Installieren von Helm-CLI</h2>
+<p>Installieren Sie zunächst das helm-Befehlszeilendienstprogramm auf
+Ihrem lokalen Computer. Helm bietet ein Skript, das den
+Installationsprozess unter MacOS, Windows oder Linux verwaltet.</p>
+<blockquote>
+<p><strong>Hinweis:</strong> Auf dem Admin-Knoten ist bereits helm
+installiert, dort kann man die Installation überspringen. Arbeiten Sie
+auf der ControlPlane können Sie wie gezeigt Helm einrichten.</p>
+</blockquote>
+<p>Wechseln Sie in ein beschreibbares Verzeichnis und laden Sie das
+Skript aus dem GitHub-Repository von Helm herunter:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /tmp</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-fsSL</span> <span class="at">-o</span> get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3</span></code></pre></div>
+<p>Machen Sie das Skript mit <code>chmod</code> ausführbar:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> u+x get_helm.sh</span></code></pre></div>
+<p>Sie können Ihren bevorzugten Texteditor verwenden, um das Skript zu
+öffnen und zu überprüfen, ob es sicher ist. Wenn Sie zufrieden damit
+sind, führen Sie es aus:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./get_helm.sh</span></span></code></pre></div>
+<p>Möglicherweise werden Sie zur Eingabe Ihres Passworts aufgefordert.
+Geben Sie es ein und drücken Sie ENTER, um fortzufahren.</p>
+<p>Die Ausgabe sieht in etwa folgendermaßen aus:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Output</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Downloading</span> https://get.helm.sh/helm-v3.1.2-linux-amd64.tar.gz</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Preparing</span> to install helm into /usr/local/bin</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="ex">helm</span> installed into /usr/local/bin/helm</span></code></pre></div>
+<p>Nachdem Helm nun installiert ist, können Sie Helm zur Installation
+Ihres ersten Chart verwenden.</p>
+<p>Mit dem folgenden Befehl richten wir uns noch die Komfortfunktion der
+Autovervollständigung in der Bash ein:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">helm</span> completion bash <span class="kw">|</span> <span class="fu">sudo</span> tee /etc/bash_completion.d/helm</span></code></pre></div>
+<p>In einer neuen Shell sollte mit <code>helm</code> und <em>tab</em>
+mögliche Eingaben angezeigt und entsprechend vervollständigt werden.</p>
+<h2 id="helm-charts">2. Helm Charts</h2>
+<p>Helm-Softwarepakete werden als <em>Charts</em> bezeichnet. Damit man
+Pakete in Helm installieren kann, muss das Repository bekanntgemacht
+werden. Das Repo wird meistens bei der Installationsanleitung von
+Software mitangegeben, so auch für das <a href="https://github.com/kubernetes/dashboard">Kubernetes Dashboard</a>
+welches wir in den nächsten Schritten installieren werden.</p>
+<p>Fügen Sie das Repository stable hinzu, indem Sie Folgendes
+ausführen:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">helm</span> repo add kubernetes-dashboard https://kubernetes.github.io/dashboard/</span></code></pre></div>
+<p>Der Output sieht wie folgt aus:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;kubernetes-dashboard&quot;</span> has been added to your repositories</span></code></pre></div>
+<p><strong>Repositories anzeigen:</strong><br />
+Mit <code>helm repo list</code> erhalten Sie eine Übersicht der
+bekanntgemachten Repositories.</p>
+<p><strong>Anwendungen suchen:</strong><br />
+Möchten Sie nach einer Anwendung in einem Repo suchen, kann mit
+ <code>helm search repo [keyword]</code> danach gesucht werden. Die
+Angabe von <code>[keyword]</code> ist dabei optional und zeigt
+Anwendungen aus allen bekannten Repos mit der aktuellsten Version. Haben
+Sie eine bestimmte Anwendung gefunden, möchten jedoch eine bestimmte
+Version nutzten. Mit der Option <code>--versions</code> ist es möglich,
+sich alle verfügbaren Möglichkeiten anzeigen zu lassen. Mit
+<code>--version string</code> kann ein String mitgegeben werden, der die
+Version bzw. Version-Range bestimmt.</p>
+<p><strong>Chart pullen:</strong><br />
+Haben Sie die gesuchte Anwendung mit der gewünschten Version gefunden,
+können Sie dieses Chart mit einem  <code>helm pull</code> herunterladen
+und vor der Installation nochmals inspizieren. Die Version geben Sie mit
+der <code>--version</code> Option an. Helm lädt das Paket herunter und
+speichert das Archiv mit Anwendungsname und Version ab.</p>
+<p><strong>Charts erstellen</strong><br />
+Helm hilft auch bei der Erstellung und Verwaltung eigener Charts. Mit
+<code>helm create chart-name</code> erstellt man sich die Grundlage
+eines Helm-Charts mit der notwendigen Struktur und ersten Dateien als
+Vorlage. Viele der verfügbaren Kommandos, die Helm definiert, helfen bei
+der weiteren Verwaltung der Charts.</p>
+<h2 id="installieren-eines-helm-charts">3. Installieren eines Helm
+Charts</h2>
+<p>Als Nächstes möchten wir die Dashboard-Anwendung aus dem zuvor
+hinzugefügten Repository installieren. Dazu geben wir in unserem
+<code>helm install</code> einen <em>Name</em> an und spezifizieren
+entsprechend das Chart.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">helm</span> install kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard</span></code></pre></div>
+<p>Die Ausgabe sieht ungefähr so aus:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">NAME:</span> dashboard-demo</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">LAST</span> DEPLOYED: Tue Apr 20 15:04:19 2020</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="ex">NAMESPACE:</span> default</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="ex">STATUS:</span> deployed</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="ex">REVISION:</span> 1</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="ex">TEST</span> SUITE: None</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="ex">NOTES:</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span></span></code></pre></div>
+<p>Beachten Sie die Zeile <code>NAME</code>, die in der obigen
+Beispielausgabe hervorgehoben ist. In diesem Fall haben Sie den Namen
+<code>dashboard-demo</code> angegeben. Das ist der <em>Release</em>-Name
+dieser installierten Anwendung. Unter einem <em>Release</em>-Name wird
+die Anwendung eines Charts mit einer bestimmten Konfiguration
+bereitgestellt. Eine Anwendung/Chart kann daher mehrmals durch
+unterschiedliche Namen und in unterschiedlichen Namespaces deployt und
+mit jeweils unterschiedlichen Einstellungen konfiguriert sein.
+Beispielsweise eine Anwendung/Chart für unterschiedliche Teams
+(Frontend, Backend) oder für unterschiedliche Stages (Test, QA,
+Produktion), jedes mit seiner spezifischen Konfiguration.</p>
+<p>Installierte Releases im Cluster kann man wie folgt anzeigen
+lassen:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">helm</span> list</span></code></pre></div>
+<p>HELM arbeitet ähnlich wie kubectl und man kann mit der Option
+<code>-A</code> alle Namespaces bzw. <code>-n namespace</code>
+spezifische Namespaces anzeigen lassen.</p>
+<p>Sie können nun<code>kubectl</code> verwenden, um sich zu
+vergewissern, dass mehrere neue Dienste im Cluster bereitgestellt
+wurden:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> get services</span></code></pre></div>
+<p>Die Ausgabe sieht in etwa folgendermaßen aus:</p>
+<pre><code>NAME                                   TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+kubernetes                             ClusterIP   10.96.0.1       &lt;none&gt;        443/TCP    176d
+kubernetes-dashboard-api               ClusterIP   10.108.61.189   &lt;none&gt;        8000/TCP   26m
+kubernetes-dashboard-auth              ClusterIP   10.105.209.99   &lt;none&gt;        8000/TCP   26m
+kubernetes-dashboard-kong-proxy        ClusterIP   10.99.202.140   &lt;none&gt;        443/TCP    26m
+kubernetes-dashboard-metrics-scraper   ClusterIP   10.106.133.77   &lt;none&gt;        8000/TCP   26m
+kubernetes-dashboard-web               ClusterIP   10.102.23.1     &lt;none&gt;        8000/TCP   26m</code></pre>
+<p>Nachdem Sie nun die Anwendung bereitgestellt haben, verwenden Sie
+Helm, um dessen Konfiguration zu ändern und die Bereitstellung zu
+aktualisieren.</p>
+<h2 id="aktualisieren-eines-release">4. Aktualisieren eines Release</h2>
+<p>Der Befehl <code>helm upgrade</code> kann dazu genutzt werden, ein
+Release mit einem neuen oder aktualisierten Chart zu aktualisieren oder
+deren Konfigurationsoptionen (Variablen) zu aktualisieren.</p>
+<p>Sie werden eine einfache Änderung an dem installierten Release
+<code>kubernetes-dashboard</code> vornehmen, um den Aktualisierungs- und
+Rollback-Prozess zu testen: Ändern Sie den Namen des Dashboard-Dienstes
+in <code>my-kubernetes-dashboard</code>.</p>
+<p>Das Chart <em>kubernetes-dashboard</em> bietet eine
+Konfigurationsoption namens <code>fullnameOverride</code>, um den
+Dienstnamen zu kontrollieren. Um das Release umzubenennen, führen Sie
+helm upgrade mit diesem Optionssatz aus:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">helm</span> upgrade kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard <span class="at">--reuse-values</span> <span class="dt">\</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>--set fullnameOverride=<span class="st">&quot;my-kubernetes-dashboard&quot;</span> <span class="dt">\</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>--set kong.fullnameOverride=<span class="st">&quot;my-kubernetes-dashboard-kong&quot;</span></span></code></pre></div>
+<p>Durch Übergeben des Arguments <code>--reuse-values</code> stellen Sie
+sicher, dass die zuvor eingerichteten Chart-Variablen bei der
+Aktualisierung nicht zurückgesetzt werden.</p>
+<p>Sie sehen eine Ausgabe, die dem anfänglichen Schritt
+<code>helm install</code> ähnelt.</p>
+<p>Überprüfen Sie, ob Ihre Kubernetes-Dienste die aktualisierten Werte
+widerspiegeln:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> get services</span></code></pre></div>
+<p>Die Ausgabe sieht ungefähr wie folgt aus:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">NAME</span>                                      TYPE        CLUSTER-IP        EXTERNAL-IP   PORT<span class="er">(</span><span class="ex">S</span><span class="kw">)</span>    <span class="ex">AGE</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="ex">kubernetes</span>                                ClusterIP   192.168.128.1     <span class="op">&lt;</span>none<span class="op">&gt;</span>        443/TCP    30h</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="ex">my-kubernetes-dashboard-api</span>               ClusterIP   192.168.181.116   <span class="op">&lt;</span>none<span class="op">&gt;</span>        8000/TCP   43s</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="ex">my-kubernetes-dashboard-auth</span>              ClusterIP   192.168.178.141   <span class="op">&lt;</span>none<span class="op">&gt;</span>        8000/TCP   43s</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="ex">my-kubernetes-dashboard-kong-proxy</span>        ClusterIP   192.168.144.204   <span class="op">&lt;</span>none<span class="op">&gt;</span>        443/TCP    43s</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="ex">my-kubernetes-dashboard-metrics-scraper</span>   ClusterIP   192.168.152.177   <span class="op">&lt;</span>none<span class="op">&gt;</span>        8000/TCP   43s</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="ex">my-kubernetes-dashboard-web</span>               ClusterIP   192.168.148.23    <span class="op">&lt;</span>none<span class="op">&gt;</span>        8000/TCP   43s</span></code></pre></div>
+<p>Beachten Sie, dass die Namen der Service auf den neuen Wert
+aktualisiert wurde.</p>
+<h3 id="zugriff-auf-das-dashboard">4.1. Zugriff auf das Dashboard</h3>
+<p>Zu diesem Zeitpunkt möchten Sie vielleicht das Kubernetes Dashboard
+tatsächlich in Ihren Browser laden und überprüfen. In unserem Cluster
+Setup hat die ControlPlane ebenfalls eine öffentliche IP erhalten. Damit
+wir das Dashboard erreichen benötigen wir lediglich ein
+NodePort-Service:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> expose deployment my-kubernetes-dashboard-kong <span class="at">--type</span> NodePort</span></code></pre></div>
+<blockquote>
+<p><strong>Anmerkung:</strong> Je nach Konfiguration erlaubt das
+Dashboard einen schreibenden Zugriff auf den Cluster und sollte daher
+nicht unbedacht öffentlich bereitstehen.</p>
+</blockquote>
+<p>Mit</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">https://</span><span class="va">${CP_01_PUBLIC_IP}</span><span class="ex">:</span><span class="va">${DAHSBOARD_NODEPORT}</span></span></code></pre></div>
+<p>Da der Zugriff auf das Dashboard durch RBAC gesichert ist, sehen Sie
+beim Zugriff nur eine Anmeldemaske. Dies ist jedoch nicht wie gewohnt
+ein regulärer Login, sondern es wird ein Token verlangt, der auf einen
+Service-Account zurückzuführen ist. Wie gezeigt kann jetzt mittels
+<code>kubectl create token &lt;SERVICE_ACCOUNT&gt;</code> ein Token
+generiert werden. Nutzten Sie hierzu einen der erstellen
+Service-Accounts wie folgt:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> create token kubernetes-dashboard-web</span></code></pre></div>
+<p>Kopieren Sie den generierte Token und loggen Sie sich in dem
+Dashboard ein.</p>
+<p>Sie werden feststellen, dass keine Ressourcen angezeigt werden. -
+Warum ist dies wohl so und was ist zu tun, um dies zu ändern?</p>
+<p>Anweisungen zur tatsächlichen Verwendung des Dashboards sind nicht
+Bestandteil dieses Tutorials. Weitere Informationen finden Sie jedoch in
+den offiziellen <a href="https://github.com/kubernetes/dashboard/tree/master">Dokumentation
+zum Kubernetes-Dashboard</a>.</p>
+<p>Als Nächstes sehen Sie sich die Möglichkeit von Helm an, Versionen
+zurückzusetzen und zu löschen.</p>
+<h2 id="zurücksetzen-und-löschen-einer-version">5. Zurücksetzen und
+Löschen einer Version</h2>
+<p>Wenn Sie die Version <code>kubernetes-dashboard</code> im vorherigen
+Schritt aktualisiert haben, haben Sie eine zweite <em>Revision</em> der
+Version erstellt. Helm behält alle Details der vorherigen Versionen bei,
+falls Sie eine frühere Konfiguration oder ein früheres Chart
+wiederherstellen müssen.</p>
+<p>Verwenden Sie <code>helm list</code>, um die Version erneut zu
+prüfen.</p>
+<p>Sie sehen die folgende Ausgabe:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">NAME</span>                    NAMESPACE       REVISION        UPDATED                                         STATUS          CHART                           APP VERSION</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="ex">kubernetes-dashboard</span>    default         2               2025-10-17 09:21:31.601723067 +0200 CEST        deployed        kubernetes-dashboard-7.13.0</span></code></pre></div>
+<p>Die Spalte <code>REVISION</code> teilt Ihnen mit, dass dies nun die
+zweite Revision ist.</p>
+<p>Verwenden Sie helm rollback, um die erste Revision
+wiederherzustellen:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">helm</span> rollback kubernetes-dashboard 1</span></code></pre></div>
+<p>Sie sollten die folgende Ausgabe sehen, was bedeutet, dass das
+Zurücksetzen erfolgreich war:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rollback</span> was a success! Happy Helming!</span></code></pre></div>
+<p>Wenn Sie <code>kubectl get services</code> an dieser Stelle erneut
+ausführen, werden Sie feststellen, dass der Dienstname wieder seinen
+vorherigen Wert aufweist. Helm hat die Anwendung mit der Konfiguration
+von Revision 1 neu bereitgestellt.</p>
+<p>Helm-Versionen können mit dem Befehl <code>helm uninstall</code>
+gelöscht werden:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="ex">helm</span> uninstall kubernetes-dashboard</span></code></pre></div>
+<p>Der Output sieht wie folgt aus:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="ex">release</span> <span class="st">&quot;kubernetes-dashboard&quot;</span> uninstalled</span></code></pre></div>
+<p>Vergewissern Sie sich mit <code>helm list --all</code>, dass das
+Helm-Release gelöscht wurde.</p>
+<p>Sie sehen, dass es keine gibt:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="ex">NAME</span>    NAMESPACE       REVISION        UPDATED STATUS  CHART   APP VERSION</span></code></pre></div>
+<p>Jetzt ist die Version wirklich gelöscht!</p>
+<p>In diesem Tutorial haben Sie das helm-Befehlszeilentool installiert
+und sich mit dem Installieren, Aktualisieren, Zurücksetzen und Löschen
+von Helm-Charts und -Versionen durch Verwalten des Chart
+kubernetes-dashboard vertraut gemacht.</p>
+<h2 id="cleanup">CleanUp</h2>
+<div class="sourceCode" id="cb26"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="ex">helm</span> uninstall</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> delete svc my-kubernetes-dashboard-kong</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co"># provide own created clusterrolebinding</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="va">MY_DASHBOARD_CRB</span><span class="op">=</span><span class="st">&quot;&quot;</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> delete clusterrolebindings.rbac.authorization.k8s.io <span class="va">$MY_DASHBOARD_CRB</span></span></code></pre></div>
+<h2 id="referenzen">Referenzen</h2>
+<ul>
+<li>Weitere Informationen zu Helm und Helm-Charts finden Sie in der
+offiziellen <a href="https://docs.helm.sh/">Helm-Dokumentation</a>.</li>
+</ul>
+</body>
+</html>

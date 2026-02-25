@@ -1,0 +1,19 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: curl
+spec:
+  schedule: "1/2 * * * *"
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 240
+      template:
+        spec:
+          containers:
+          - name: curl
+            image: alpine/curl
+            command:
+            - /bin/sh
+            - -c
+            - 'curl http://<HTTPBIN_POD_IP>/get'
+          restartPolicy: OnFailure

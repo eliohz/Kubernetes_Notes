@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>uebung-registry</title>
+  <style>
+
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+  <style type="text/css">
+:root {
+--space-xs: 0.25rem;
+--space-sm: 0.5rem;
+--space-md: 1rem;
+--space-lg: 1.5rem;
+--space-xl: 2.5rem;
+--content-width: 860px;
+--border-radius-sm: 4px;
+--border-radius-md: 6px;
+}
+:root {
+--font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI",
+Roboto, Helvetica, Arial, sans-serif;
+--font-mono: "SFMono-Regular", Consolas, "Liberation Mono",
+Menlo, monospace;
+--font-size-base: 16px;
+--line-height-base: 1.65;
+}
+:root {
+--color-bg: #ffffff;
+--color-text: #1f2933;
+--color-muted: #4b5563;
+--color-border: #e5e7eb;
+--color-border-strong: #d1d5db;
+--color-link: #2563eb;
+--color-link-hover: #1d4ed8;
+--color-inline-code-bg: #f3f4f6;
+--color-blockquote-bg: #f8fafc;
+--color-blockquote-border: #93c5fd;
+--color-pre-bg: #0f172a;
+--color-pre-text: #e5e7eb;
+--color-table-header-bg: #f3f4f6;
+}
+@media (prefers-color-scheme: dark) {
+:root {
+--color-bg: #0b1020;
+--color-text: #e5e7eb;
+--color-muted: #9ca3af;
+--color-border: #1f2937;
+--color-border-strong: #374151;
+--color-link: #60a5fa;
+--color-link-hover: #93c5fd;
+--color-inline-code-bg: #1f2937;
+--color-blockquote-bg: #0f172a;
+--color-blockquote-border: #60a5fa;
+--color-pre-bg: #020617;
+--color-pre-text: #e5e7eb;
+--color-table-header-bg: #020617;
+}
+}
+
+html {
+font-size: var(--font-size-base);
+}
+body {
+font-family: var(--font-sans);
+line-height: var(--line-height-base);
+color: var(--color-text);
+background-color: var(--color-bg);
+margin: 0 auto;
+padding: var(--space-xl);
+max-width: var(--content-width);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+font-weight: 600;
+line-height: 1.3;
+margin-top: 2.2em;
+margin-bottom: var(--space-sm);
+}
+h1 {
+font-size: 2.2rem;
+border-bottom: 2px solid var(--color-border);
+padding-bottom: var(--space-xs);
+}
+h2 {
+font-size: 1.75rem;
+border-bottom: 1px solid var(--color-border);
+padding-bottom: var(--space-xs);
+}
+h3 {
+font-size: 1.4rem;
+}
+h4 {
+font-size: 1.15rem;
+color: var(--color-muted);
+}
+
+p {
+margin: var(--space-md) 0;
+}
+strong {
+font-weight: 600;
+}
+em {
+font-style: italic;
+}
+
+a {
+color: var(--color-link);
+text-decoration: none;
+}
+a:hover {
+color: var(--color-link-hover);
+text-decoration: underline;
+}
+
+ul,
+ol {
+margin: var(--space-md) 0 var(--space-md) var(--space-lg);
+}
+li {
+margin: var(--space-xs) 0;
+}
+
+code {
+font-family: var(--font-mono);
+font-size: 0.95em;
+background-color: var(--color-inline-code-bg);
+padding: 0.2em 0.4em;
+border-radius: var(--border-radius-sm);
+}
+pre {
+background-color: var(--color-pre-bg);
+color: var(--color-pre-text);
+padding: var(--space-md);
+margin: var(--space-lg) 0;
+border-radius: var(--border-radius-md);
+overflow-x: auto;
+}
+pre code {
+background: none;
+padding: 0;
+color: inherit;
+font-size: 0.9em;
+}
+
+blockquote {
+margin: var(--space-lg) 0;
+padding-left: var(--space-md);
+border-left: 4px solid var(--color-blockquote-border);
+background-color: var(--color-blockquote-bg);
+color: var(--color-muted);
+}
+
+table {
+width: 100%;
+border-collapse: collapse;
+margin: var(--space-lg) 0;
+}
+th,
+td {
+border: 1px solid var(--color-border);
+padding: var(--space-sm) var(--space-md);
+text-align: left;
+}
+th {
+background-color: var(--color-table-header-bg);
+font-weight: 600;
+}
+
+hr {
+border: none;
+border-top: 1px solid var(--color-border);
+margin: var(--space-xl) 0;
+}
+img {
+max-width: 100%;
+height: auto;
+margin: var(--space-lg) 0;
+}
+.footnotes {
+font-size: 0.9em;
+color: var(--color-muted);
+border-top: 1px solid var(--color-border);
+margin-top: var(--space-xl);
+}
+pre.sourceCode {
+overflow: auto;
+background-color: var(--color-pre-bg);
+color: var(--color-pre-text);
+padding: var(--space-md);
+border-radius: var(--border-radius-md);
+}
+pre.sourceCode>code {
+background: none;
+}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">uebung-registry</h1>
+</header>
+<h1 id="installation-einer-privaten-registry">Installation einer
+privaten Registry</h1>
+<p>In dieser Übung wollen wir uns eine kleine eigene Registry für
+Container bereitstellen.</p>
+<p>Mit der Ausführung von</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-d</span> <span class="at">-p</span> 5000:5000 <span class="at">--restart</span><span class="op">=</span>always <span class="at">--name</span> registry registry:2</span></code></pre></div>
+<p>wird die Registry als Container gestartet.</p>
+<p>Nachfolgend laden wir eine Image herunter und laden es danach in die
+eingene lokale Registry.</p>
+<p>Mit <em>pull</em> wird der Download des alpine-Image von dem Docker
+hub gestartet.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> pull alpine</span></code></pre></div>
+<p>Durch die Erstellung eines neuen Tags für ein existierendes Image,
+kann man festlegen auf welche Registry man es transferieren möchte. Der
+erste Teil des Tags ist der Domainname (in unserem fall localhost und
+Port). Docker interpretiert dies als den Standort von wo das Image kommt
+bzw. wo es bei einem <em>push</em> hin geladen werden soll.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> tag docker.io/alpine localhost:5000/my-alpine</span></code></pre></div>
+<blockquote>
+<p><strong>Hinweis:</strong> Listet man sich die Images jetzt in docker
+auf (<code>docker images</code>), sieht man zwar ein neues Image,
+ebenfalls mit einer Größe angegeben, jedoch belegt es kein extra
+Speicher, da es die gleiche Image ID wie das Image zuvor hat. Der Tag
+kann als Referenz auf ein Image mit seiner ID betrachtet werden.</p>
+</blockquote>
+<p>Push des Images zu der lokalen Registry</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> push localhost:5000/my-alpine</span></code></pre></div>
+<p>Falls es Probleme beim pushen gibt entsprechend die folgende Änderung
+vornehmen:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># open daemon.json</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> vi etc/docker/daemon.json</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># and add/insert</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#{</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#    “insecure-registries“:[“localhost:5000“]</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">#}</span></span></code></pre></div>
+<p>nachdem auf jeden Fall: <code>systemctl restart docker</code></p>
+<p>Entfernen des lokal gespeicherte alpine-Image sowie der neue Tag
+localhost:5000/my-alpine, um zu testet, ob man das Image aus der lokalen
+Registry laden kann (pull).</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> rmi alpine</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> rmi localhost:5000/my-alpine</span></code></pre></div>
+<p>Jetzt Test , ob Image aus der Registry geladen werden kann:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> pull localhost:5000/my-alpine</span></code></pre></div>
+<p>Check des Images:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> images</span></code></pre></div>
+<blockquote>
+<p><strong>Hinweis:</strong> Die Registry bietet eine API an über die
+auch Docker kommuniziert. Über einfache API-Endpunkte wie
+<code>/v2/_catalog</code> und
+<code>/v2/&lt;IMAGE_REPO&gt;/tags/list</code> kann man sich ein
+Überblick über die verfügbaren Images verschaffen. Beispiel
+<code>curl localhost:5000/v2/_catalog</code> und
+<code>curl localhost:5000/v2/my-alpine/tags/list</code>. Es gibt aber
+auch Tools (<a href="https://github.com/containers/skopeo">Skopeo</a>)
+die hier helfen und mit Registries interagieren können und entsprechend
+auch Authentisierung abdecken.</p>
+</blockquote>
+<p>Die lokale Registry stoppen und den Container entfernen:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> container stop registry <span class="kw">&amp;&amp;</span> <span class="ex">docker</span> container rm <span class="at">-v</span> registry</span></code></pre></div>
+<h2 id="registry-management">Registry Management</h2>
+<p>Nachfolgend wollen wir noch ein paar wichtige Punkte bei der
+Handhabung der Registry betrachten. Die <a href="https://distribution.github.io/distribution/">Dokumentation der
+Registry</a> bietet eine umfassende Sammlung zu den unterschiedlichsten
+Themen.</p>
+<p><strong>Container Auto-Restarts:</strong><br />
+Durch die Option <code>--restart</code> erreicht man einen automatisch
+startenden Container, sobald Docker auf dem Host gestartet ist:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-d</span> <span class="dt">\</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>-p 5000:5000 <span class="dt">\</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>--restart=always <span class="dt">\</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>--name registry <span class="dt">\</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>registry:2</span></code></pre></div>
+<p><strong>Registry Konfiguration</strong><br />
+Die Registry lässt sich mittels Umgebungsvariablen konfigurieren. So
+kann man Beispielsweise die Adresse/Port der Registry festlegen.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-d</span> <span class="dt">\</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>-e REGISTRY_HTTP_ADDR=0.0.0.0:5001 <span class="dt">\</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>-p 5001:5001 <span class="dt">\</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>--name registry <span class="dt">\</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>registry:2</span></code></pre></div>
+<p><strong>Container Bind-Mount</strong><br />
+Standardmäßig werden die Daten der Registry in einem Docker-Volume auf
+dem Host-Dateisystem gespeichert. Wenn Sie Ihre Registry-Inhalte an
+einem bestimmten Ort auf Ihrem Host-Dateisystem speichern möchten, z. B.
+wenn Sie eine SSD oder ein SAN in ein bestimmtes Verzeichnis gemountet
+haben, können Sie stattdessen einen Bind-Mount verwenden. Ein Bind-Mount
+ist stärker vom Dateisystem-Layout des Docker-Hosts abhängig, ist aber
+in vielen Situationen performanter. Das folgende Beispiel bindet das
+Host-Verzeichnis <code>/mnt/registry</code> in den Registry-Container
+unter <code>/var/lib/registry/</code> ein.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-d</span> <span class="dt">\</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>-p 5000:5000 <span class="dt">\</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>--restart=always <span class="dt">\</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>--name registry <span class="dt">\</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>-v /mnt/registry:/var/lib/registry <span class="dt">\</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>registry:2</span></code></pre></div>
+<h2 id="referenzen">Referenzen</h2>
+<ul>
+<li><a href="https://github.com/containers/skopeo">Github
+Skopeo</a></li>
+<li><a href="https://distribution.github.io/distribution/">CNCF
+Distribution Registry</a></li>
+</ul>
+</body>
+</html>

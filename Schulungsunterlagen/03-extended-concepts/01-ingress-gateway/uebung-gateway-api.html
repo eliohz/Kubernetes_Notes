@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>uebung-gateway-api</title>
+  <style>
+
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+  <style type="text/css">
+:root {
+--space-xs: 0.25rem;
+--space-sm: 0.5rem;
+--space-md: 1rem;
+--space-lg: 1.5rem;
+--space-xl: 2.5rem;
+--content-width: 860px;
+--border-radius-sm: 4px;
+--border-radius-md: 6px;
+}
+:root {
+--font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI",
+Roboto, Helvetica, Arial, sans-serif;
+--font-mono: "SFMono-Regular", Consolas, "Liberation Mono",
+Menlo, monospace;
+--font-size-base: 16px;
+--line-height-base: 1.65;
+}
+:root {
+--color-bg: #ffffff;
+--color-text: #1f2933;
+--color-muted: #4b5563;
+--color-border: #e5e7eb;
+--color-border-strong: #d1d5db;
+--color-link: #2563eb;
+--color-link-hover: #1d4ed8;
+--color-inline-code-bg: #f3f4f6;
+--color-blockquote-bg: #f8fafc;
+--color-blockquote-border: #93c5fd;
+--color-pre-bg: #0f172a;
+--color-pre-text: #e5e7eb;
+--color-table-header-bg: #f3f4f6;
+}
+@media (prefers-color-scheme: dark) {
+:root {
+--color-bg: #0b1020;
+--color-text: #e5e7eb;
+--color-muted: #9ca3af;
+--color-border: #1f2937;
+--color-border-strong: #374151;
+--color-link: #60a5fa;
+--color-link-hover: #93c5fd;
+--color-inline-code-bg: #1f2937;
+--color-blockquote-bg: #0f172a;
+--color-blockquote-border: #60a5fa;
+--color-pre-bg: #020617;
+--color-pre-text: #e5e7eb;
+--color-table-header-bg: #020617;
+}
+}
+
+html {
+font-size: var(--font-size-base);
+}
+body {
+font-family: var(--font-sans);
+line-height: var(--line-height-base);
+color: var(--color-text);
+background-color: var(--color-bg);
+margin: 0 auto;
+padding: var(--space-xl);
+max-width: var(--content-width);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+font-weight: 600;
+line-height: 1.3;
+margin-top: 2.2em;
+margin-bottom: var(--space-sm);
+}
+h1 {
+font-size: 2.2rem;
+border-bottom: 2px solid var(--color-border);
+padding-bottom: var(--space-xs);
+}
+h2 {
+font-size: 1.75rem;
+border-bottom: 1px solid var(--color-border);
+padding-bottom: var(--space-xs);
+}
+h3 {
+font-size: 1.4rem;
+}
+h4 {
+font-size: 1.15rem;
+color: var(--color-muted);
+}
+
+p {
+margin: var(--space-md) 0;
+}
+strong {
+font-weight: 600;
+}
+em {
+font-style: italic;
+}
+
+a {
+color: var(--color-link);
+text-decoration: none;
+}
+a:hover {
+color: var(--color-link-hover);
+text-decoration: underline;
+}
+
+ul,
+ol {
+margin: var(--space-md) 0 var(--space-md) var(--space-lg);
+}
+li {
+margin: var(--space-xs) 0;
+}
+
+code {
+font-family: var(--font-mono);
+font-size: 0.95em;
+background-color: var(--color-inline-code-bg);
+padding: 0.2em 0.4em;
+border-radius: var(--border-radius-sm);
+}
+pre {
+background-color: var(--color-pre-bg);
+color: var(--color-pre-text);
+padding: var(--space-md);
+margin: var(--space-lg) 0;
+border-radius: var(--border-radius-md);
+overflow-x: auto;
+}
+pre code {
+background: none;
+padding: 0;
+color: inherit;
+font-size: 0.9em;
+}
+
+blockquote {
+margin: var(--space-lg) 0;
+padding-left: var(--space-md);
+border-left: 4px solid var(--color-blockquote-border);
+background-color: var(--color-blockquote-bg);
+color: var(--color-muted);
+}
+
+table {
+width: 100%;
+border-collapse: collapse;
+margin: var(--space-lg) 0;
+}
+th,
+td {
+border: 1px solid var(--color-border);
+padding: var(--space-sm) var(--space-md);
+text-align: left;
+}
+th {
+background-color: var(--color-table-header-bg);
+font-weight: 600;
+}
+
+hr {
+border: none;
+border-top: 1px solid var(--color-border);
+margin: var(--space-xl) 0;
+}
+img {
+max-width: 100%;
+height: auto;
+margin: var(--space-lg) 0;
+}
+.footnotes {
+font-size: 0.9em;
+color: var(--color-muted);
+border-top: 1px solid var(--color-border);
+margin-top: var(--space-xl);
+}
+pre.sourceCode {
+overflow: auto;
+background-color: var(--color-pre-bg);
+color: var(--color-pre-text);
+padding: var(--space-md);
+border-radius: var(--border-radius-md);
+}
+pre.sourceCode>code {
+background: none;
+}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">uebung-gateway-api</h1>
+</header>
+<h1 id="gateway-api">Gateway API</h1>
+<p>Die Gateway-API ist der moderne Nachfolger des Kubernetes-Ingress und
+bietet eine flexiblere und klarer strukturierte Möglichkeit,
+Netzwerkverkehr in Kubernetes zu steuern. Im Gegensatz zu Ingress trennt
+die Gateway-API die Zuständigkeiten zwischen
+Infrastruktur-Administratoren und Anwendungsteams deutlicher und
+unterstützt neben HTTP auch weitere Protokolle wie TCP, UDP oder gRPC.
+In dieser Übung lernst du, wie du mit einer GatewayClass, einem Gateway
+und einer HTTPRoute den HTTP-Traffic zu einem Beispielservice
+weiterleitest. Ziel ist es, die grundlegende Funktionsweise der
+Gateway-API zu verstehen und einen einfachen, funktionsfähigen Gateway
+in Kubernetes bereitzustellen.</p>
+<h2 id="ziel-der-übung">Ziel der Übung</h2>
+<p>Nach Abschluss dieser Übung kannst du:</p>
+<ul>
+<li>die grundlegenden Komponenten der Gateway-API (GatewayClass,
+Gateway, HTTPRoute) erklären,</li>
+<li>eine einfache Anwendung über die Gateway-API erreichbar machen,</li>
+<li>und verstehen, wie moderne Traffic-Steuerung in Kubernetes umgesetzt
+wird.</li>
+</ul>
+<h2 id="setup-gateway-api">Setup Gateway API</h2>
+<p>Diese Übung setzt voraus, dass die Übung <em>Service</em> mit dem
+Abschnitt <em>ClusterIP</em> durchgeführt wurde.</p>
+<p>Wie auch beim Ingress ist bei der Gateway-API ein Controller für das
+Weiterleiten der Requests verantwortlich. Da diese Ressourcen nicht im
+Standard enthalten sind, müssen wir diese entsprechend dem Cluster
+hinzufügen.</p>
+<p>Gateway-API-CRDs dem Cluster hinzufügen:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> kustomize <span class="st">&quot;https://github.com/nginx/nginx-gateway-fabric/config/crd/gateway-api/standard?ref=v2.1.4&quot;</span> <span class="kw">|</span> <span class="ex">kubectl</span> apply <span class="at">-f</span> <span class="at">-</span></span></code></pre></div>
+<p>Den Gateway-Controller mit Helm installieren, in unserem Fall
+verwenden wir den <a href="https://docs.nginx.com/nginx-gateway-fabric/install/helm/">nginx-gateway-fabric</a>:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">helm</span> install ngf oci://ghcr.io/nginx/charts/nginx-gateway-fabric <span class="dt">\</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>--version 2.1.4 <span class="dt">\</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>--create-namespace <span class="at">-n</span> nginx-gateway <span class="dt">\</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>--set nginx.service.type=NodePort <span class="dt">\</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>--set-json <span class="st">&#39;nginx.service.nodePorts=[{&quot;port&quot;:31437,&quot;listenerPort&quot;:80}]&#39;</span></span></code></pre></div>
+<blockquote>
+<p><strong>Helm</strong> ist ein Paketmanagement-Werkzeug für
+Kubernetes. In einem späteren Kapitel gehen wir näher darauf ein.</p>
+</blockquote>
+<ul>
+<li>Welche Standard-Ressourcen wurden im Namespace
+<code>nginx-gateway</code> erstellt?</li>
+</ul>
+<p>Um das eigentliche Gateway auszurollen, wenden wir das
+bereitgestellte Gateway-Manifest an:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> apply <span class="at">-f</span> yaml/gateway.yaml</span></code></pre></div>
+<ul>
+<li>Machen Sie sich mit dem Manifest vertraut. Was wird angelegt?</li>
+<li>Was könnte die Eigenschaft <code>allowedRoutes</code> des Gateways
+definieren?</li>
+<li>Was befindet sich im Namespace <em>infra</em>?</li>
+<li>Was für einen Service gibt es und welche Eigenschaften hat
+dieser?</li>
+</ul>
+<h2 id="konfiguration-der-http-route">Konfiguration der HTTP Route</h2>
+<p>Im vergangenen Abschnitt haben wir den Gateway-Controller
+(<code>nginx-gateway-fabric</code>) und das eigentliche Gateway deployt.
+Aus der Sicht des Cluster-Operators hat man definiert, dass das Gateway
+im Namespace <em>infra</em> läuft. Als Anwendungsbetreiber wollen wir im
+nächsten Schritt die Kommunikation mit der freizugebenden Anwendung
+ermöglichen. Hierzu legen wir ein HTTPRoute-Objekt an.</p>
+<p>Machen Sie sich mit dem <code>yaml/httproute.yaml</code> Manifest
+vertraut. - Was sagt die Einstellung <code>parentRefs</code> aus? - Auf
+welchen Hostnamen ist die Route festgelegt? - Wie muss die Anfrage
+aussehen, damit ein Routing passiert (URL)? - Wie ist festgelegt, wohin
+geroutet wird?</p>
+<p>Wenden Sie die Route im Cluster an:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> apply <span class="at">-f</span> yaml/httproute.yaml</span></code></pre></div>
+<p>Wie auch beim Ingress können wir nun eine entsprechende Anfrage an
+den Cluster schicken, die vom Gateway aufgenommen und an den
+festgelegten Service weitergeleitet wird. Wir benötigen somit wieder
+eine IP eines der Worker und den entsprechenden NodePort. Der NodePort
+wurde bei der Installation des Gateways definiert und lautet
+<em>31437</em>, man kann sich aber nochmal vergewissern, indem man den
+Service im <em>infra</em>-Namespace betrachtet. Bei der Host-IP des
+Workers gibt es jetzt aufgrund einer Einstellung des Gateway-Service ein
+“aber”. Aufgrund der Einstellung <em>externalTrafficPolicy</em> im
+Service werden nur Requests an den Node geroutet, auf dem der Pod mit
+dem Gateway läuft. Für mehr Informationen siehe nachfolgenden
+Hinweis.</p>
+<blockquote>
+<p><strong><a href="https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip">Hinweis:
+externalTrafficPolicy</a></strong><br />
+Die Einstellung externalTrafficPolicy in einem Kubernetes-Service (vom
+Typ LoadBalancer oder NodePort) legt fest, wie eingehender externer
+Traffic an die Pods weitergeleitet wird. Sie kann zwei Werte
+annehmen:</p>
+<p><em>Cluster</em> (Standard):<br />
+Der eingehende Traffic kann auf alle Nodes im Cluster verteilt werden,
+unabhängig davon, wo die Ziel-Pods laufen. Das sorgt für gleichmäßiges
+Load-Balancing, führt aber dazu, dass die ursprüngliche Client-IP
+verloren geht.</p>
+<p><em>Local</em>:<br />
+Der Traffic wird nur an Pods auf dem Node weitergeleitet, auf dem die
+Anfrage angekommen ist. Dadurch bleibt die Client-IP erhalten, aber es
+kann zu ungleichmäßiger Lastverteilung kommen, wenn nicht auf jedem Node
+ein passender Pod läuft.</p>
+</blockquote>
+<p>Die IP des entsprechenden Worker-Nodes greifen wir wie folgt ab:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># only one ip should return</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> <span class="at">-n</span> nginx-gateway get pods <span class="at">-l</span> app.kubernetes.io/instance=ngf <span class="at">-o</span> jsonpath=<span class="st">&#39;{.items[*].status.hostIP}&#39;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># create variable</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="va">HOST_IP</span><span class="op">=</span><span class="st">&#39;&#39;</span></span></code></pre></div>
+<p>Mit dem folgenden Aufruf können wir das Routing testen:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># will result in 404</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-H</span> <span class="st">&quot;host: example.com&quot;</span> <span class="va">$HOST_IP</span>:31437/api</span></code></pre></div>
+<p>Jedoch wird dieser Aufruf noch mit <strong>404</strong> quittiert!
+Aufgrund unseres Setups mit dem Gateway im <em>infra</em>-Namespace und
+unserer Anwendung und HTTPRoute im <em>Default</em>-Namespace, bildet
+dieses Szenario ein <a href="https://gateway-api.sigs.k8s.io/guides/multiple-ns/">Cross-Namespace
+Route Attachment</a> und muss daher entsprechend konfiguriert sein. Aus
+der Rolle des Cluster-Operators muss für ein funktionierendes Routing im
+Gateway eine <code>allowedRoutes</code> Regel definiert sein und
+erlaubte Namensräume müssen mit dem entsprechenden Label versehen
+werden.</p>
+<p>Das entsprechende Labeling wurde im Setup ausgelassen und ist im
+Cluster einzufügen.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fix missing cross-namespace label for HTTPRoutes</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> label namespaces default team=app</span></code></pre></div>
+<p>Ein erneuter Aufruf:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-H</span> <span class="st">&quot;host: example.com&quot;</span> <span class="va">$HOST</span>:31437/api</span></code></pre></div>
+<p>sollte zu einer ähnlichen Ausgabe, wie gezeigt führen:</p>
+<pre><code>Request served by frontend-745f6f954d-fjgdx
+
+GET /api HTTP/1.1
+
+Host: example.com
+Accept: */*
+Connection: close
+User-Agent: curl/7.61.1
+X-Forwarded-For: 10.0.0.9
+X-Forwarded-Host: example.com
+X-Forwarded-Port: 80
+X-Forwarded-Proto: http
+X-Real-Ip: 10.0.0.9</code></pre>
+<h2 id="clean-up">Clean up</h2>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># delete app with httproute</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> delete service frontend</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> delete deployments.apps frontend</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> delete httproutes.gateway.networking.k8s.io frontend</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># delete gateway</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> label namespaces default team-</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> delete <span class="at">-n</span> infra gateway web</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> delete namespaces infra</span></code></pre></div>
+<h1 id="referenzen">Referenzen</h1>
+<ul>
+<li><a href="https://www.codecentric.de/en/knowledge-hub/blog/demystifying-the-kubernetes-gateway-api-what-the-heck-is-it-and-why-should-you-care">codecentric:
+Demystifying-the-Kubernetes-Gateway-API</a></li>
+<li><a href="https://gateway-api.sigs.k8s.io/">gateway api</a></li>
+<li><a href="https://docs.nginx.com/nginx-gateway-fabric/get-started/">nginx-gateway-fabric
+Get started</a></li>
+</ul>
+</body>
+</html>

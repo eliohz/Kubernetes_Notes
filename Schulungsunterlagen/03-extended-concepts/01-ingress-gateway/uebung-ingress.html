@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>uebung-ingress</title>
+  <style>
+
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+  <style type="text/css">
+:root {
+--space-xs: 0.25rem;
+--space-sm: 0.5rem;
+--space-md: 1rem;
+--space-lg: 1.5rem;
+--space-xl: 2.5rem;
+--content-width: 860px;
+--border-radius-sm: 4px;
+--border-radius-md: 6px;
+}
+:root {
+--font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI",
+Roboto, Helvetica, Arial, sans-serif;
+--font-mono: "SFMono-Regular", Consolas, "Liberation Mono",
+Menlo, monospace;
+--font-size-base: 16px;
+--line-height-base: 1.65;
+}
+:root {
+--color-bg: #ffffff;
+--color-text: #1f2933;
+--color-muted: #4b5563;
+--color-border: #e5e7eb;
+--color-border-strong: #d1d5db;
+--color-link: #2563eb;
+--color-link-hover: #1d4ed8;
+--color-inline-code-bg: #f3f4f6;
+--color-blockquote-bg: #f8fafc;
+--color-blockquote-border: #93c5fd;
+--color-pre-bg: #0f172a;
+--color-pre-text: #e5e7eb;
+--color-table-header-bg: #f3f4f6;
+}
+@media (prefers-color-scheme: dark) {
+:root {
+--color-bg: #0b1020;
+--color-text: #e5e7eb;
+--color-muted: #9ca3af;
+--color-border: #1f2937;
+--color-border-strong: #374151;
+--color-link: #60a5fa;
+--color-link-hover: #93c5fd;
+--color-inline-code-bg: #1f2937;
+--color-blockquote-bg: #0f172a;
+--color-blockquote-border: #60a5fa;
+--color-pre-bg: #020617;
+--color-pre-text: #e5e7eb;
+--color-table-header-bg: #020617;
+}
+}
+
+html {
+font-size: var(--font-size-base);
+}
+body {
+font-family: var(--font-sans);
+line-height: var(--line-height-base);
+color: var(--color-text);
+background-color: var(--color-bg);
+margin: 0 auto;
+padding: var(--space-xl);
+max-width: var(--content-width);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+font-weight: 600;
+line-height: 1.3;
+margin-top: 2.2em;
+margin-bottom: var(--space-sm);
+}
+h1 {
+font-size: 2.2rem;
+border-bottom: 2px solid var(--color-border);
+padding-bottom: var(--space-xs);
+}
+h2 {
+font-size: 1.75rem;
+border-bottom: 1px solid var(--color-border);
+padding-bottom: var(--space-xs);
+}
+h3 {
+font-size: 1.4rem;
+}
+h4 {
+font-size: 1.15rem;
+color: var(--color-muted);
+}
+
+p {
+margin: var(--space-md) 0;
+}
+strong {
+font-weight: 600;
+}
+em {
+font-style: italic;
+}
+
+a {
+color: var(--color-link);
+text-decoration: none;
+}
+a:hover {
+color: var(--color-link-hover);
+text-decoration: underline;
+}
+
+ul,
+ol {
+margin: var(--space-md) 0 var(--space-md) var(--space-lg);
+}
+li {
+margin: var(--space-xs) 0;
+}
+
+code {
+font-family: var(--font-mono);
+font-size: 0.95em;
+background-color: var(--color-inline-code-bg);
+padding: 0.2em 0.4em;
+border-radius: var(--border-radius-sm);
+}
+pre {
+background-color: var(--color-pre-bg);
+color: var(--color-pre-text);
+padding: var(--space-md);
+margin: var(--space-lg) 0;
+border-radius: var(--border-radius-md);
+overflow-x: auto;
+}
+pre code {
+background: none;
+padding: 0;
+color: inherit;
+font-size: 0.9em;
+}
+
+blockquote {
+margin: var(--space-lg) 0;
+padding-left: var(--space-md);
+border-left: 4px solid var(--color-blockquote-border);
+background-color: var(--color-blockquote-bg);
+color: var(--color-muted);
+}
+
+table {
+width: 100%;
+border-collapse: collapse;
+margin: var(--space-lg) 0;
+}
+th,
+td {
+border: 1px solid var(--color-border);
+padding: var(--space-sm) var(--space-md);
+text-align: left;
+}
+th {
+background-color: var(--color-table-header-bg);
+font-weight: 600;
+}
+
+hr {
+border: none;
+border-top: 1px solid var(--color-border);
+margin: var(--space-xl) 0;
+}
+img {
+max-width: 100%;
+height: auto;
+margin: var(--space-lg) 0;
+}
+.footnotes {
+font-size: 0.9em;
+color: var(--color-muted);
+border-top: 1px solid var(--color-border);
+margin-top: var(--space-xl);
+}
+pre.sourceCode {
+overflow: auto;
+background-color: var(--color-pre-bg);
+color: var(--color-pre-text);
+padding: var(--space-md);
+border-radius: var(--border-radius-md);
+}
+pre.sourceCode>code {
+background: none;
+}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">uebung-ingress</h1>
+</header>
+<h1 id="übung-ingress">Übung Ingress</h1>
+<p>In dieser Übung möchten wir uns mit dem Ingress und der
+Ingress-Ressource beschäftigen. Dabei möchten wir vor allem die
+Funktionsweise kennenlernen und wie wir TrafficRouten entsprechend
+unseren Vorgaben definieren können. Bei <a href="https://kubernetes.io/docs/concepts/services-networking/ingress/">Ingress</a>
+und der einhergehenden Ingress-Konfiguration wird festgelegt, wie der
+eingehende Datenverkehr vom Ingress-Controller verarbeitet und durch die
+Referenz durch einen Service an den entsprechenden Pod weitergeleitet
+wird. Im Vergleich zu den vorgehenden Services arbeitet der Ingress auf
+Level 7 des <a href="https://de.wikipedia.org/wiki/OSI-Modell">OSI-Modells</a> und
+nicht auf Level 4. Damit Ingress im Cluster verwendet werden kann, muss
+ein <a href="https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/">Controller</a>
+installiert sein. Die unterschiedlichen Hersteller der
+Ingress-Controller bieten einfach installierbare Manifeste an.</p>
+<p>Wir verwenden im Weiteren den <a href="https://kubernetes.github.io/ingress-nginx/deploy/">ingress-nginx-Controller</a>.
+Da dessen Konfiguration für unseren Versuch nicht optimal ist, muss noch
+eine Anpassung vorgenommen werden.</p>
+<blockquote>
+<p><strong>Hinweis:</strong> Die gemachte Änderung ist nur für
+Demonstrationszwecke, und sollte nicht unbedacht in Produktivsysteme
+gemacht werden!</p>
+</blockquote>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get ingress-nginx manifest for installation</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.12.0/deploy/static/provider/cloud/deploy.yaml</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="st">&quot;s/externalTrafficPolicy: Local/externalTrafficPolicy: Cluster/&quot;</span> deploy.yaml <span class="op">&gt;</span> deploy-mod.yaml</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># CHECK externalTrafficPolicy should be set to Cluster</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> externalTrafficPolicy deploy-mod.yaml</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># apply on cluster</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> apply <span class="at">-f</span> deploy-mod.yaml</span></code></pre></div>
+<ul>
+<li>Es sollte ein neuer Namespace existieren. Welcher ist das?</li>
+<li>Welche Objekte wurden in dem Namespace erstellt?</li>
+<li>Welche Services gibt es in dem Namespace und welcher NodePort ist
+gesetzt (Hinweis)?</li>
+</ul>
+<blockquote>
+<p>Der Service <code>ingress-nginx-controller</code> ist zwar vom Typ
+LoadBalancer, arbeitet aber wie ein NodePort-Service. Er besitzt daher
+auch einen entsprechenden.</p>
+</blockquote>
+<p>Nachdem der Ingress-Controller bereit ist, können wir eine
+Ingress-Resource anlegen. Ein Service existiert ja bereits für unser
+Frontend. Da wir keinen offiziellen Hostnamen haben, setzten wir einfach
+einen Dummy-Hostnamen <code>example.com</code>. Für unser Beispiel
+reicht kubectl zum Anlegen der Resource, für den Produktiveinsatz sollte
+man eine entsprechende <a href="https://kubernetes.io/docs/concepts/services-networking/ingress/#the-ingress-resource">Ingress-Resource
+als YAML</a> anlegen.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># show example in kubectl help</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> create ingress <span class="at">--help</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> create ingress frontend-ingress <span class="at">--rule</span><span class="op">=</span>example.com/=frontend:8080 <span class="at">--class</span> nginx</span></code></pre></div>
+<ul>
+<li>Die erstellte Ingress-Ressource näher untersuchen
+(<code>kubectl get ...</code>, <code>kubectl describe ...</code>)</li>
+</ul>
+<p>Die Ingress-Ressource sollte jetzt existieren und somit der Service
+bzw. der Pod entsprechend erreichbar sein. Da wir, wie beschrieben, nur
+einen “Dummy-Hostnamen” gesetzt haben, muss dieser beim Aufrufen mit
+curl oder manuell durch einen Eintrag in <code>/etc/hosts</code> gesetzt
+werden.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Complex jsonpath filter to get nodeport of http port configuration</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="va">NODE_PORT</span><span class="op">=</span><span class="va">$(</span><span class="ex">kubectl</span> <span class="at">-n</span> ingress-nginx get services ingress-nginx-controller <span class="at">-o</span> jsonpath=<span class="st">&quot;{.spec.ports[?(.name==</span><span class="dt">\&quot;</span><span class="st">http</span><span class="dt">\&quot;</span><span class="st">)].nodePort}&quot;</span><span class="va">)</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-H</span> <span class="st">&quot;host: example.com&quot;</span> 10.0.0.11:<span class="va">$NODE_PORT</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-H</span> <span class="st">&quot;host: example.com&quot;</span> 10.0.0.13:<span class="va">$NODE_PORT</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-H</span> <span class="st">&quot;host: example.com&quot;</span> 10.0.0.15:<span class="va">$NODE_PORT</span></span></code></pre></div>
+<p>Jeder der curl aufrufe sollte zu einer entsprechenden Antwort
+führen.</p>
+<blockquote>
+<p><strong>Hinweis:</strong> In der Antwort des Pods sieht man
+entsprechende HTTP-Header, welche gesetzt sind die den Echo Server
+erreichen, beispielsweise die <code>X-Real-Ip</code>. Je nachdem welchen
+Knoten man für den curl-Aufruf, verwendet ist dort eine andere IP
+eingetragen. Warum ist das so bzw. welche IPs sind das und wo sind diese
+zu finden?.</p>
+</blockquote>
+</body>
+</html>

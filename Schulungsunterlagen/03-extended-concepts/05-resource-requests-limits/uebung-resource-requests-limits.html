@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>uebung-resource-requests-limits</title>
+  <style>
+
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+  <style type="text/css">
+:root {
+--space-xs: 0.25rem;
+--space-sm: 0.5rem;
+--space-md: 1rem;
+--space-lg: 1.5rem;
+--space-xl: 2.5rem;
+--content-width: 860px;
+--border-radius-sm: 4px;
+--border-radius-md: 6px;
+}
+:root {
+--font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI",
+Roboto, Helvetica, Arial, sans-serif;
+--font-mono: "SFMono-Regular", Consolas, "Liberation Mono",
+Menlo, monospace;
+--font-size-base: 16px;
+--line-height-base: 1.65;
+}
+:root {
+--color-bg: #ffffff;
+--color-text: #1f2933;
+--color-muted: #4b5563;
+--color-border: #e5e7eb;
+--color-border-strong: #d1d5db;
+--color-link: #2563eb;
+--color-link-hover: #1d4ed8;
+--color-inline-code-bg: #f3f4f6;
+--color-blockquote-bg: #f8fafc;
+--color-blockquote-border: #93c5fd;
+--color-pre-bg: #0f172a;
+--color-pre-text: #e5e7eb;
+--color-table-header-bg: #f3f4f6;
+}
+@media (prefers-color-scheme: dark) {
+:root {
+--color-bg: #0b1020;
+--color-text: #e5e7eb;
+--color-muted: #9ca3af;
+--color-border: #1f2937;
+--color-border-strong: #374151;
+--color-link: #60a5fa;
+--color-link-hover: #93c5fd;
+--color-inline-code-bg: #1f2937;
+--color-blockquote-bg: #0f172a;
+--color-blockquote-border: #60a5fa;
+--color-pre-bg: #020617;
+--color-pre-text: #e5e7eb;
+--color-table-header-bg: #020617;
+}
+}
+
+html {
+font-size: var(--font-size-base);
+}
+body {
+font-family: var(--font-sans);
+line-height: var(--line-height-base);
+color: var(--color-text);
+background-color: var(--color-bg);
+margin: 0 auto;
+padding: var(--space-xl);
+max-width: var(--content-width);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+font-weight: 600;
+line-height: 1.3;
+margin-top: 2.2em;
+margin-bottom: var(--space-sm);
+}
+h1 {
+font-size: 2.2rem;
+border-bottom: 2px solid var(--color-border);
+padding-bottom: var(--space-xs);
+}
+h2 {
+font-size: 1.75rem;
+border-bottom: 1px solid var(--color-border);
+padding-bottom: var(--space-xs);
+}
+h3 {
+font-size: 1.4rem;
+}
+h4 {
+font-size: 1.15rem;
+color: var(--color-muted);
+}
+
+p {
+margin: var(--space-md) 0;
+}
+strong {
+font-weight: 600;
+}
+em {
+font-style: italic;
+}
+
+a {
+color: var(--color-link);
+text-decoration: none;
+}
+a:hover {
+color: var(--color-link-hover);
+text-decoration: underline;
+}
+
+ul,
+ol {
+margin: var(--space-md) 0 var(--space-md) var(--space-lg);
+}
+li {
+margin: var(--space-xs) 0;
+}
+
+code {
+font-family: var(--font-mono);
+font-size: 0.95em;
+background-color: var(--color-inline-code-bg);
+padding: 0.2em 0.4em;
+border-radius: var(--border-radius-sm);
+}
+pre {
+background-color: var(--color-pre-bg);
+color: var(--color-pre-text);
+padding: var(--space-md);
+margin: var(--space-lg) 0;
+border-radius: var(--border-radius-md);
+overflow-x: auto;
+}
+pre code {
+background: none;
+padding: 0;
+color: inherit;
+font-size: 0.9em;
+}
+
+blockquote {
+margin: var(--space-lg) 0;
+padding-left: var(--space-md);
+border-left: 4px solid var(--color-blockquote-border);
+background-color: var(--color-blockquote-bg);
+color: var(--color-muted);
+}
+
+table {
+width: 100%;
+border-collapse: collapse;
+margin: var(--space-lg) 0;
+}
+th,
+td {
+border: 1px solid var(--color-border);
+padding: var(--space-sm) var(--space-md);
+text-align: left;
+}
+th {
+background-color: var(--color-table-header-bg);
+font-weight: 600;
+}
+
+hr {
+border: none;
+border-top: 1px solid var(--color-border);
+margin: var(--space-xl) 0;
+}
+img {
+max-width: 100%;
+height: auto;
+margin: var(--space-lg) 0;
+}
+.footnotes {
+font-size: 0.9em;
+color: var(--color-muted);
+border-top: 1px solid var(--color-border);
+margin-top: var(--space-xl);
+}
+pre.sourceCode {
+overflow: auto;
+background-color: var(--color-pre-bg);
+color: var(--color-pre-text);
+padding: var(--space-md);
+border-radius: var(--border-radius-md);
+}
+pre.sourceCode>code {
+background: none;
+}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">uebung-resource-requests-limits</h1>
+</header>
+<h1 id="übung-requests-limits">Übung Requests &amp; Limits</h1>
+<h2 id="ziel-der-übung">Ziel der Übung</h2>
+<p>Du lernst:</p>
+<ul>
+<li>Wie Requests und Limits das Scheduling beeinflussen</li>
+<li>Was passiert, wenn Container mehr Ressourcen verbrauchen</li>
+<li>Wie sich unterschiedliche Einstellungen auf die Performance und
+Stabilität auswirken</li>
+<li>Wie Kubernetes Pods bei Ressourcenknappheit behandelt</li>
+</ul>
+<h2 id="vorbereitung">Vorbereitung</h2>
+<p>Kubernetes bezieht sich bei einigen Funktionen auf die aktuellen
+Metriken der einzelnen Nodes im Cluster, den Verbrauch von CPU oder RAM.
+Damit diese gesammelt und entsprechend bereitstehen, ist eine
+zusätzliche Komponente Voraussetzung, welche nicht im Standard
+installiert ist. Der <em>Metics-Server</em> ist diese Komponente und
+wird nachfolgend dem Cluster hinzugefügt.</p>
+<h3 id="metric-server">Metric Server</h3>
+<p>Was ist der Kubernetes Metrics Server?</p>
+<p>Der Kubernetes Metrics Server ist ein schlanker, clusterweiter
+Aggregator für Ressourcenverbrauchsdaten. Er sammelt Echtzeit-CPU- und
+Speicher-Metriken von allen Knoten und Pods in einem Cluster und stellt
+sie über die Metrics-API bereit. Ein installierter Metrics-Server
+erlaubt es, den <code>kubectl top</code> Befehl auf Pods und Knoten
+auszuführen und entsprechend deren Auslastung anzuzeigen. In erster
+Linie dient der Server jedoch für Autoscaling-Funktionen mit
+<em>Horizontal-</em> oder <em>Vertical-Pod-Autoscaler</em> als
+Schnittstelle.</p>
+<blockquote>
+<p><strong>Hinweis:</strong> Der Metrics-Server ist
+<strong>nicht</strong> dafür geeignet als Schnittstelle für
+Monitoring-Lösungen zu dienen. Für dieses Fall sollte direkt die
+Metriken von den Kubelets und dessen Endpunkt
+<code>/metrics/resource</code> gesammelt werden.</p>
+</blockquote>
+<p>Die grundlegenden Ressourcen des Metrics-Servers werden wie gezeigt
+installiert:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> apply <span class="at">-f</span> https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml</span></code></pre></div>
+<p>Da wir im Seminar mit self-signed Zertifikaten arbeiten, ist bei dem
+Deployment des Metric-Servers eine Anpassung nötig.</p>
+<blockquote>
+<p><strong>Hinweis:</strong> Dies bitte <strong>NICHT</strong> unbedacht
+im produktiven Umfeld machen.</p>
+</blockquote>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> <span class="at">-n</span> kube-system patch deployment metrics-server <span class="at">--type</span><span class="op">=</span><span class="st">&#39;json&#39;</span> <span class="dt">\</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">-p</span><span class="op">=</span><span class="st">&#39;[</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="st">    {</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="st">      &quot;op&quot;: &quot;add&quot;,</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="st">      &quot;path&quot;: &quot;/spec/template/spec/containers/0/args/-&quot;,</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="st">      &quot;value&quot;: &quot;--kubelet-insecure-tls&quot;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="st">    }</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="st">  ]&#39;</span></span></code></pre></div>
+<hr />
+<h2 id="erstelle-ein-deployment-mit-definierten-requests-und-limits">Erstelle
+ein Deployment mit definierten Requests und Limits</h2>
+<p>Es ist folgendes Deployment <code>burstable-deployment</code> mit
+Inhalt gegeben: <code>yaml/deployment.yaml</code> machen Sie sich damit
+vertraut: - Welche Anforderungen hat der Pod an CPU und Arbeitsspeicher
+hinterlegt? - Mit welchem Label steuern wir, wo der Pod landet? - Was
+wird im Container ausgeführt und kann man sagen, wie der Pod ausgelastet
+sein wird?</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apiVersion</span><span class="kw">:</span><span class="at"> apps/v1</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">kind</span><span class="kw">:</span><span class="at"> Deployment</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">metadata</span><span class="kw">:</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">name</span><span class="kw">:</span><span class="at"> burstable-deployment</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">spec</span><span class="kw">:</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">replicas</span><span class="kw">:</span><span class="at"> </span><span class="dv">2</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">selector</span><span class="kw">:</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">matchLabels</span><span class="kw">:</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">app</span><span class="kw">:</span><span class="at"> burstable-deployment</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">template</span><span class="kw">:</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">metadata</span><span class="kw">:</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">labels</span><span class="kw">:</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">app</span><span class="kw">:</span><span class="at"> burstable-deployment</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">spec</span><span class="kw">:</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">affinity</span><span class="kw">:</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">nodeAffinity</span><span class="kw">:</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="fu">requiredDuringSchedulingIgnoredDuringExecution</span><span class="kw">:</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="at">            </span><span class="fu">nodeSelectorTerms</span><span class="kw">:</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="at">            </span><span class="kw">-</span><span class="at"> </span><span class="fu">matchExpressions</span><span class="kw">:</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="at">              </span><span class="kw">-</span><span class="at"> </span><span class="fu">key</span><span class="kw">:</span><span class="at"> type</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="at">                </span><span class="fu">operator</span><span class="kw">:</span><span class="at"> In</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="at">                </span><span class="fu">values</span><span class="kw">:</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="at">                </span><span class="kw">-</span><span class="at"> request</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">containers</span><span class="kw">:</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> stress-container</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">image</span><span class="kw">:</span><span class="at"> polinux/stress</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">command</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="st">&quot;stress&quot;</span><span class="kw">]</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">args</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="st">&quot;--cpu&quot;</span><span class="kw">,</span><span class="at"> </span><span class="st">&quot;2&quot;</span><span class="kw">]</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">resources</span><span class="kw">:</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="fu">requests</span><span class="kw">:</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="at">            </span><span class="fu">cpu</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;250m&quot;</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="at">            </span><span class="fu">memory</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;128Mi&quot;</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="fu">limits</span><span class="kw">:</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="at">            </span><span class="fu">cpu</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;500m&quot;</span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a><span class="at">            </span><span class="fu">memory</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;256Mi&quot;</span></span></code></pre></div>
+<p>Füge ein Label zu einem node hinzu:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> get nodes <span class="at">--show-labels</span></span></code></pre></div>
+<p>Wähle dann zB den Node w-01 aus:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> label nodes w-01 type=request</span></code></pre></div>
+<p>Überprüfen, ob das Label korrekt hinzugefügt wurde:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> get node w-01 <span class="at">--show-labels</span></span></code></pre></div>
+<p>Wenden Sie danach das Deployment im Cluster an und prüfe, ob der Pod
+läuft und welche Ressourcen er verbraucht. - Mit welchen Sub-Befehlen
+und Ressourcen kann ich mit <code>kubectl</code> eine Übersicht über die
+Ressourcenauslastung erhalten? - Wie stark sind unsere
+burstable-deployment Pods ausgelastet in %?</p>
+<p>Beobachte, dass der Scheduler die Pods nur auf Nodes setzt, die
+mindestens <strong>250m CPU und 128Mi RAM</strong> frei haben.</p>
+<hr />
+<h2 id="überlaste-den-arbeitsspeicher-des-containers">Überlaste den
+Arbeitsspeicher des Containers</h2>
+<p>Nun wirst du untersuchen, wie Kubernetes reagiert, wenn der Container
+versucht, über seine Limits vom Arbeitsspeicher hinauszugehen.</p>
+<p>Verbinde dich mit <code>kube exec ...</code> mit einem der
+burstable-deployment Pods.</p>
+<p>Starte eine RAM-intensive Aufgabe, z. B.:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">stress</span> <span class="at">--vm</span> 1 <span class="at">--vm-bytes</span> 250M <span class="at">--timeout</span> 20</span></code></pre></div>
+<p>In einem zweiten Terminal kann man kann mit
+<code>watch -n1 kubectl top pods</code> den Speicherverbrauch
+überwachen. Die Aktualisierung von <code>kubectl top</code> ist jedoch
+nicht ganz so schnell bis man etwas sieht.</p>
+<blockquote>
+<p><strong>Hinweis:</strong> Der <code>stress</code>-Prozess ist etwas
+seltsam. Wenn man den zweiten Prozess (<code>kubectl exec ...</code>und
+und <code>stress</code> ) mit <code>CTRL-c</code> beendet, tritt ein
+Fehler auf was den gesamten Container beendet. Daher vermeiden den
+Prozess mit <code>CRTL-c</code> zu beenden und füge ein Timeout dem
+Kommando hinzu (<code>--timeout 20</code>).</p>
+</blockquote>
+<p>Die Anzahl der Bytes des <code>stress</code>-Befehls dann
+entsprechend auf das Limit des Containers erhöhen. - Was passiert und
+was war der Status des Pods?</p>
+<hr />
+<h2 id="quality-of-service-klassen-qos">Quality of Service Klassen
+(QoS)</h2>
+<h3 id="cpu">CPU</h3>
+<p>Erstelle zwei weitere Deployment-Manifest und passe die
+<strong>Namen</strong> sowie <strong>Requests</strong> und
+<strong>Limits</strong> entsprechend den angaben an:</p>
+<table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 52%" />
+</colgroup>
+<thead>
+<tr>
+<th>Deployment</th>
+<th>Requests</th>
+<th>Limits</th>
+<th>Erwartetes Verhalten</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>best-effort</strong></td>
+<td>Keine</td>
+<td>Keine</td>
+<td>Pods können verdrängt werden, wenn Ressourcen knapp sind</td>
+</tr>
+<tr>
+<td><strong>burstable</strong></td>
+<td>250m CPU, 128Mi RAM</td>
+<td>500m CPU, 256Mi RAM</td>
+<td>moderate Stabilität, CPU-Drosselung möglich</td>
+</tr>
+<tr>
+<td><strong>guaranteed</strong></td>
+<td>250m CPU, 256Mi RAM</td>
+<td>250m CPU, 256Mi RAM</td>
+<td>höchste Priorität, garantiert Ressourcen</td>
+</tr>
+</tbody>
+</table>
+<p>Überprüfe mit kubectl die QoS-Klasse der Pods, verwende dafür die
+Ausgabe <code>-o custom-columns</code>. Die Spalte der Klasse bekommt
+man durch die Angabe von <code>QoS:status.qosClass</code></p>
+<p>Führe alle drei Deployments gleichzeitig aus, um somit auf dem Knoten
+ein Last zu simuliere. Überprüfe das den aktuellen Verbrauch und den
+Status der Pods:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> top pods</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> get pods <span class="at">-o</span> wide</span></code></pre></div>
+<p>Skaliere danach ein paar der Pods, um den Knoten weiter künstlich zu
+überlasten und beobachte: - Wann werden keine Pods mehr gescheduled? -
+Werden Pods durch das Skalieren beendet? - wenn nein warum nicht? - Wie
+variiert die Auslastung von CPU der Pods?</p>
+<h2 id="reflexionsfragen">Reflexionsfragen</h2>
+<ol type="1">
+<li>Was passiert, wenn Requests zu hoch gesetzt werden?</li>
+<li>Wie beeinflussen Limits die Performance deiner Anwendung?</li>
+<li>Wann würdest du gleiche Werte für Request und Limit wählen
+(Guaranteed QoS)?</li>
+<li>Warum ist es riskant, keine Limits zu setzen?</li>
+<li>Wie würdest du Requests und Limits für eine Web-App, eine
+Batch-Job-App und eine Datenbank-App unterschiedlich festlegen?</li>
+</ol>
+<h2 id="cleanup">CleanUp</h2>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> delete deployment best-effort-deployment burstable-deployment guaranteed-deployment</span></code></pre></div>
+</body>
+</html>
