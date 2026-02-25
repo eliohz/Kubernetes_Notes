@@ -11,14 +11,14 @@
             "id": "2875e1bf6f8d2e59",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "split-diff-view",
               "state": {
-                "file": "Tag 1 - Kubernetes.md",
-                "mode": "source",
-                "source": false
+                "aFile": "Schulungsunterlagen/02-basic-concepts/01-pods/uebungen-pod.md",
+                "bFile": "Schulungsunterlagen/02-basic-concepts/01-pods/uebungen-pod.md",
+                "aRef": ""
               },
-              "icon": "lucide-file",
-              "title": "Tag 1 - Kubernetes"
+              "icon": "diff",
+              "title": "Diff: uebungen-pod  (Working Tree)"
             }
           }
         ]
@@ -196,11 +196,12 @@
   },
   "active": "2875e1bf6f8d2e59",
   "lastOpenFiles": [
-    "Tag 2 - Kubernetes.md",
-    "Tag 1 - Kubernetes.md",
-    "README.md",
-    "_restyle.py",
     "Tag 1 - Docker.md",
+    "Schulungsunterlagen/02-basic-concepts/01-pods/uebungen-pod.md",
+    "README.md",
+    "Tag 1 - Kubernetes.md",
+    "Tag 2 - Kubernetes.md",
+    "_restyle.py",
     "_images/Pasted image 20260225140659.png",
     "_images/Pasted image 20260225140716.png",
     "index.html",
@@ -235,7 +236,6 @@
     "Schulungsunterlagen/02-basic-concepts/07-services/uebung-services.md",
     "Schulungsunterlagen/02-basic-concepts/06-configmaps-secrets/uebung-config-secrets.md",
     "Schulungsunterlagen/02-basic-concepts/03-deployments/uebung-deployment.md",
-    "Schulungsunterlagen/02-basic-concepts/01-pods/uebungen-pod.md",
     "Schulungsunterlagen/02-basic-concepts/02-replicasets/uebung-replicaset.md",
     "Schulungsunterlagen/01-intoduction/01-registry/uebung-registry.md",
     "kubeops-k8s-uebungsunterlagen/03-extended-concepts/06-paketmanager/kustomize/kustomize-configMapGenerator.png",
