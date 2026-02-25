@@ -11,14 +11,14 @@
             "id": "2875e1bf6f8d2e59",
             "type": "leaf",
             "state": {
-              "type": "split-diff-view",
+              "type": "markdown",
               "state": {
-                "aFile": "Schulungsunterlagen/02-basic-concepts/01-pods/uebungen-pod.md",
-                "bFile": "Schulungsunterlagen/02-basic-concepts/01-pods/uebungen-pod.md",
-                "aRef": ""
+                "file": "README.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "diff",
-              "title": "Diff: uebungen-pod  (Working Tree)"
+              "icon": "lucide-file",
+              "title": "README"
             }
           }
         ]
@@ -196,6 +196,7 @@
   },
   "active": "2875e1bf6f8d2e59",
   "lastOpenFiles": [
+    "kubernetes-commands.md",
     "Tag 1 - Docker.md",
     "Schulungsunterlagen/02-basic-concepts/01-pods/uebungen-pod.md",
     "README.md",
@@ -240,7 +241,6 @@
     "Schulungsunterlagen/01-intoduction/01-registry/uebung-registry.md",
     "kubeops-k8s-uebungsunterlagen/03-extended-concepts/06-paketmanager/kustomize/kustomize-configMapGenerator.png",
     "kubeops-k8s-uebungsunterlagen/03-extended-concepts/06-paketmanager/kustomize/uebung-kustomize.md",
-    "kubeops-k8s-uebungsunterlagen/03-extended-concepts/05-resource-requests-limits/uebung-resource-requests-limits.md",
-    "kubeops-k8s-uebungsunterlagen/03-extended-concepts/04-rbac/uebung-rbac-de.md"
+    "kubeops-k8s-uebungsunterlagen/03-extended-concepts/05-resource-requests-limits/uebung-resource-requests-limits.md"
   ]
 }
