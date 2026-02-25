@@ -17,6 +17,18 @@
 
 ## Komponenten
 
-**Control-Plane**: Zentrale administrative Service-Komponente auf dem Master
+#### Control-Plane: 
+**API-Server (kube-apiserver)**
+- Zentrale administrative Service-Komponente auf dem Master
+- Verwaltet alle Ressourcen und Baupläne
+- Validiert und verarbeitet Requests
+- Legt Soll-Zustand im etcd ab
+
+**Controller manager**
+- Steuert alle Controllerabläufe auf dem Control Plane. 
+- Jeder Controller ist ein separater Prozess aber im Controller Manager werden alle in einer binary Kompiliert und ausgeführt
+- Beobachtet den API Server
+- Vergleicht IST-Zustand mit SOLL-Zustand
+- Gibt auszuführende Anweisungen an den Scheduler weiter
 
 
