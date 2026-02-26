@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "README.md",
+                "file": "Tag 1 - Kubernetes.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "README"
+              "title": "Tag 1 - Kubernetes"
             }
           }
         ]
@@ -196,12 +196,13 @@
   },
   "active": "2875e1bf6f8d2e59",
   "lastOpenFiles": [
-    "kubernetes-commands.md",
-    "Tag 1 - Docker.md",
-    "Schulungsunterlagen/02-basic-concepts/01-pods/uebungen-pod.md",
-    "README.md",
-    "Tag 1 - Kubernetes.md",
     "Tag 2 - Kubernetes.md",
+    "Tag 1 - Docker.md",
+    "Tag 1 - Kubernetes.md",
+    "_images/Pasted image 20260226090807.png",
+    "README.md",
+    "kubernetes-commands.md",
+    "Schulungsunterlagen/02-basic-concepts/01-pods/uebungen-pod.md",
     "_restyle.py",
     "_images/Pasted image 20260225140659.png",
     "_images/Pasted image 20260225140716.png",
@@ -239,8 +240,6 @@
     "Schulungsunterlagen/02-basic-concepts/03-deployments/uebung-deployment.md",
     "Schulungsunterlagen/02-basic-concepts/02-replicasets/uebung-replicaset.md",
     "Schulungsunterlagen/01-intoduction/01-registry/uebung-registry.md",
-    "kubeops-k8s-uebungsunterlagen/03-extended-concepts/06-paketmanager/kustomize/kustomize-configMapGenerator.png",
-    "kubeops-k8s-uebungsunterlagen/03-extended-concepts/06-paketmanager/kustomize/uebung-kustomize.md",
-    "kubeops-k8s-uebungsunterlagen/03-extended-concepts/05-resource-requests-limits/uebung-resource-requests-limits.md"
+    "kubeops-k8s-uebungsunterlagen/03-extended-concepts/06-paketmanager/kustomize/uebung-kustomize.md"
   ]
 }

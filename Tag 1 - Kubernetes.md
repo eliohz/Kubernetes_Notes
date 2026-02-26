@@ -47,7 +47,7 @@ Zentrale Steuerungseinheit des Kubernetes-Clusters
 **Kubelet**
 - Agent auf jedem Worker Node.
 - Spricht mit dem API-Server.
-- Startet und überwacht Pods/Container.
+- Startet und überwacht Pods/Container über Runntime
 - Sorgt dafür, dass der **IST-Zustand** dem **SOLL-Zustand** entspricht.
 
 **Kube-Proxy**
