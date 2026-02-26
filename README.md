@@ -3,7 +3,6 @@
 Schulung vom 25.02.2026 - 26.02.2026
 
 Umfassende Einführung in Docker und Kubernetes mit praktischen Übungen und Anwendungsbeispielen.
-
 ## Referenz
 
 - [kubectl Cheat Sheet](./kubernetes-commands.md)
@@ -17,6 +16,8 @@ Umfassende Einführung in Docker und Kubernetes mit praktischen Übungen und Anw
 ---
 
 ## Schulungsunterlagen
+
+
 
 ### 00 - Kubernetes Setup
 

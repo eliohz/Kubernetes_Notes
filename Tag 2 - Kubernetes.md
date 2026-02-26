@@ -4,3 +4,4 @@
 
 ## Docker Namespaces
 Namespaces sind eine Kernfunktion des Linux-Kernels, die Docker nutzt, um Container zu isolieren.
+
