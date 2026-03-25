@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Tag 5.md",
+                "file": "Tag 3 - Kubernetes.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Tag 5"
+              "title": "Tag 3 - Kubernetes"
             }
           }
         ]
@@ -194,11 +194,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "a6325799545c888c",
+  "active": "2875e1bf6f8d2e59",
   "lastOpenFiles": [
-    "Tag 4.md",
+    "Tag 3 - Kubernetes.md",
     "Tag 5.md",
-    "Tag 3.md",
+    "Tag 4.md",
     "Tag 1 - Kubernetes.md",
     "Tag 2 - Kubernetes.md",
     "Tag 1 - Docker.md",
