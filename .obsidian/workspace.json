@@ -11,12 +11,14 @@
             "id": "2875e1bf6f8d2e59",
             "type": "leaf",
             "state": {
-              "type": "image",
+              "type": "markdown",
               "state": {
-                "file": "Schulungsunterlagen/00-kubernetes-setup/azure-umgebung.excalidraw.png"
+                "file": "Tag 3 - Kubernetes.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-image",
-              "title": "azure-umgebung.excalidraw"
+              "icon": "lucide-file",
+              "title": "Tag 3 - Kubernetes"
             }
           }
         ]
@@ -192,21 +194,21 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "a6325799545c888c",
+  "active": "2875e1bf6f8d2e59",
   "lastOpenFiles": [
+    "Tag 1 - Kubernetes.md",
+    "Tag 2 - Kubernetes.md",
+    "Schulungsunterlagen/02-basic-concepts/01-pods/uebungen-pod.md",
+    "Schulungsunterlagen/00-kubernetes-setup/azure-umgebung.excalidraw.png",
     "Tag 3 - Kubernetes.md",
     "Tag 5.md",
     "Tag 4.md",
-    "Tag 1 - Kubernetes.md",
-    "Tag 2 - Kubernetes.md",
     "Tag 1 - Docker.md",
     "README.md",
     "kubernetes-commands.md",
     "Schulungsunterlagen/00-kubernetes-setup/uebung-kubernetes-setup-rhel.md",
     "Schulungsunterlagen/01-intoduction/01-registry/uebung-registry.md",
-    "Schulungsunterlagen/02-basic-concepts/01-pods/uebungen-pod.md",
     "Schulungsunterlagen/00-kubernetes-setup/uebung-kubernetes-setup-ubuntu.md",
-    "Schulungsunterlagen/00-kubernetes-setup/azure-umgebung.excalidraw.png",
     "_images/Pasted image 20260226090807.png",
     "_restyle.py",
     "_images/Pasted image 20260225140659.png",
@@ -238,7 +240,6 @@
     "Schulungsunterlagen/02-basic-concepts/04-daemonsets/uebung-daemonset.md",
     "Schulungsunterlagen/02-basic-concepts/05-jobs-cronjobs/uebung-job-cronjob.md",
     "Schulungsunterlagen/02-basic-concepts/07-services/uebung-services.md",
-    "Schulungsunterlagen/02-basic-concepts/06-configmaps-secrets/uebung-config-secrets.md",
-    "Schulungsunterlagen/02-basic-concepts/03-deployments/uebung-deployment.md"
+    "Schulungsunterlagen/02-basic-concepts/06-configmaps-secrets/uebung-config-secrets.md"
   ]
 }

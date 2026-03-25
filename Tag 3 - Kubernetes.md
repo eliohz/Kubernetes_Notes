@@ -68,12 +68,12 @@ graph TD
 
 ## Wo werden Selectors verwendet?
 
-|Ressource|Wozu|
-|---|---|
-|`Service`|Traffic zu den richtigen Pods routen|
-|`Deployment`|Welche Pods zum Deployment gehören|
-|`NetworkPolicy`|Firewall-Regeln für bestimmte Pods|
-|`Node Affinity`|Pods auf bestimmte Nodes schedulen|
+| Ressource       | Wozu                                 |
+| --------------- | ------------------------------------ |
+| `Service`       | Traffic zu den richtigen Pods routen |
+| `Deployment`    | Welche Pods zum Deployment gehören   |
+| `NetworkPolicy` | Firewall-Regeln für bestimmte Pods   |
+| `Node Affinity` | Pods auf bestimmte Nodes schedulen   |
 
 ---
 
@@ -92,3 +92,13 @@ selector:
       operator: In          # In / NotIn / Exists / DoesNotExist
       values: [production, staging]
 ```
+
+
+# Daemon Sets - Grundlagen
+**Definition:** Ein Controller, der sicherstellt, dass **genau ein Pod auf jedem Node** im Cluster läuft.
+	- **Zweck:** Bereitstellung von node-spezifischen Infrastruktur-Diensten.
+	- **Automatik:** Neuer Node im Cluster = automatischer Start des Pods. Node gelöscht = Pod weg.
+	- **Anwendungsfälle:**
+		- **Logging:** (z. B. Fluentd) – Logs vom Host sammeln.
+	    - **Monitoring:** (z. B. Prometheus Exporter) – Hardware-Daten auslesen.
+	    - **Networking:** (z. B. kube-proxy) – Netzwerkregeln verwalten.
