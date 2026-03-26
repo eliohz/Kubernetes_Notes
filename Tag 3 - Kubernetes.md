@@ -1,3 +1,8 @@
+
+# Pods
+
+Ein Pod ist eine Art „Kapsel“ für deine Anwendung. Er gruppiert einen oder mehrere Container (meistens Docker-Container) zusammen, damit sie als eine Einheit verwaltet werden können.
+(Best Practise -> Ein Service pro Pod)
 # Labels & Selectors
 
 ## Zweck
@@ -47,58 +52,13 @@ Mehrere Kriterien = **AND** — alle müssen passen.
 
 ---
 
-## Wie es zusammenhängt
-
-```mermaid
-graph TD
-    SVC["Service: selector app=frontend"] --> A
-    SVC["Service: selector app=frontend"] --> B
-    SVC2["Service: selector app=frontend AND env=production"] --> A
-
-    A["Pod A — app=frontend, env=production"]
-    B["Pod B — app=frontend, env=staging"]
-    C["Pod C — app=backend, env=production — kein Match"]
-
-    style C fill:#f0f0f0,stroke:#ccc,color:#999
-```
-
-> Pod C hat keinen passenden Selector — wird von keinem Service angesprochen.
+# Replica Sets
 
 ---
 
-## Wo werden Selectors verwendet?
+# Deployments
 
-| Ressource       | Wozu                                 |
-| --------------- | ------------------------------------ |
-| `Service`       | Traffic zu den richtigen Pods routen |
-| `Deployment`    | Welche Pods zum Deployment gehören   |
-| `NetworkPolicy` | Firewall-Regeln für bestimmte Pods   |
-| `Node Affinity` | Pods auf bestimmte Nodes schedulen   |
 
 ---
+# Daemon Sets
 
-## Zwei Arten von Selectors
-
-```yaml
-# Einfach — exakter Match
-selector:
-  matchLabels:
-    app: frontend
-
-# Flexibler — mit Operatoren
-selector:
-  matchExpressions:
-    - key: env
-      operator: In          # In / NotIn / Exists / DoesNotExist
-      values: [production, staging]
-```
-
-
-# Daemon Sets - Grundlagen
-**Definition:** Ein Controller, der sicherstellt, dass **genau ein Pod auf jedem Node** im Cluster läuft.
-	- **Zweck:** Bereitstellung von node-spezifischen Infrastruktur-Diensten.
-	- **Automatik:** Neuer Node im Cluster = automatischer Start des Pods. Node gelöscht = Pod weg.
-	- **Anwendungsfälle:**
-		- **Logging:** (z. B. Fluentd) – Logs vom Host sammeln.
-	    - **Monitoring:** (z. B. Prometheus Exporter) – Hardware-Daten auslesen.
-	    - **Networking:** (z. B. kube-proxy) – Netzwerkregeln verwalten.
