@@ -51,14 +51,32 @@ selector:
 Mehrere Kriterien = **AND** — alle müssen passen.
 
 ---
+# ReplicaSet
 
-# Replica Sets
+Stellt sicher, dass zu jedem Zeitpunkt eine **bestimmte Anzahl identischer Pods** läuft. 
+Wenn ein Pod abstürzt, erstellt das ReplicaSet automatisch einen neuen. 
+Wird heute meist nicht direkt verwendet, sondern indirekt über ein Deployment verwaltet.
+
+---
+
+# Deployment
+
+Das **Standardmittel für zustandslose Applikationen**. 
+Ein Deployment verwaltet ein ReplicaSet und ermöglicht zusätzlich kontrollierte **Updates und Rollbacks** 
+z.B. Rolling Updates, bei denen Pods schrittweise ersetzt werden, ohne Downtime.
 
 ---
 
-# Deployments
+# DaemonSet
 
+Sorgt dafür, dass **auf jedem Node genau ein Pod** läuft. 
+Ideal für Systemdienste wie Log-Collector, Monitoring-Agents oder Netzwerk-Plugins, die auf jeder Maschine im Cluster vorhanden sein müssen. 
+Neuer Node = automatisch neuer Pod.
 
 ---
-# Daemon Sets
+
+# Job / CronJob
+
+- **Job**: Führt eine Aufgabe **einmalig bis zur erfolgreichen Beendigung** aus – z.B. Datenbankmigrationen oder Batch-Verarbeitungen. Im Gegensatz zu Deployments soll der Pod am Ende _stoppen_.
+- **CronJob**: Wie ein Job, aber **zeitgesteuert** (nach Linux-Cron-Syntax) – z.B. täglich um 02:00 Uhr ein Backup ausführen.
 
