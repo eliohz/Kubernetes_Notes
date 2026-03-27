@@ -171,6 +171,7 @@ flowchart LR
 ```
 
 ### Taint — auf dem Node
+Ein **Taint** ist eine Markierung auf einem Node, die sagt: _"Hier darf kein Pod laufen. ausser er akzeptiert das explizit."
 
 ```bash
 kubectl taint nodes gpu-node gpu=true:NoSchedule
