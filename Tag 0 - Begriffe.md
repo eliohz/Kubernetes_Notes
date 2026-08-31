@@ -17,13 +17,13 @@
 
 Je nachdem, was deine App tun soll, wählst du ein anderes Werkzeug:
 
-|**Werkzeug**|**Zweck**|**Merkmal**|
-|---|---|---|
-|**Deployment**|"Normaler" Dienst|Läuft dauerhaft, macht Updates ohne Pause.|
-|**ReplicaSet**|Der Bodyguard|Achtet nur auf die Anzahl ("Immer 3!").|
-|**DaemonSet**|Der Hausmeister|Läuft auf **jedem** Node (z. B. für Logs).|
-|**Job**|Der Kurier|Erledigt eine Aufgabe und geht dann in Rente.|
-|**CronJob**|Der Wecker|Erledigt Aufgaben nach Zeitplan (z. B. Backups).|
+| **Werkzeug**   | **Zweck**         | **Merkmal**                                      |
+| -------------- | ----------------- | ------------------------------------------------ |
+| **Deployment** | "Normaler" Dienst | Läuft dauerhaft, macht Updates ohne Pause.       |
+| **ReplicaSet** | Der Bodyguard     | Achtet nur auf die Anzahl ("Immer 3!").          |
+| **DaemonSet**  | Der Hausmeister   | Läuft auf **jedem** Node (z. B. für Logs).       |
+| **Job**        | Der Kurier        | Erledigt eine Aufgabe und geht dann in Rente.    |
+| **CronJob**    | Der Wecker        | Erledigt Aufgaben nach Zeitplan (z. B. Backups). |
 
 ---
 
